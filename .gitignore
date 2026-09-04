@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+
+# Local scratch
+tmp/
+
+# Proprietary source materials — do not commit
+Resources/
+
+# Editor
+.vscode/
+.idea/
+
+# Node (in case build tooling is added later)
+node_modules/
+npm-debug.log*
