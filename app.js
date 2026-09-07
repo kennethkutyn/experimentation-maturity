@@ -36,9 +36,15 @@ const CATEGORIES = [
     short: "Strategy",
     questionIds: [1, 2, 3],
     steps: [
-      "Map every active experiment to a specific KPI on the company scorecard — if it doesn't ladder up, question whether it should run.",
+      {
+        text: "Map every active experiment to a specific KPI on the company scorecard — if it doesn't ladder up, question whether it should run.",
+        read: { title: "Product-Led Experimentation", url: "https://amplitude.com/blog/product-led-experimentation" },
+      },
       "Publish an experimentation charter that ties test priorities to company OKRs, and review it quarterly with the leadership team.",
-      "Expand experimentation beyond product and growth into marketing, pricing, support, and operations — pick one non-obvious surface this quarter.",
+      {
+        text: "Expand experimentation beyond product and growth into marketing, pricing, support, and operations — pick one non-obvious surface this quarter.",
+        read: { title: "5 Trends Shaping the Future of A/B Testing", url: "https://amplitude.com/blog/ab-testing-trends" },
+      },
       "Have your CEO or CPO cite an experiment result in their next all-hands or board update. Public rituals shift what teams believe leadership values.",
       "Run a program design workshop with the Statsig team to shape your experimentation vision, roadmap, and cross-functional operating model.",
     ],
@@ -49,9 +55,18 @@ const CATEGORIES = [
     short: "Culture",
     questionIds: [4, 5, 6, 7],
     steps: [
-      "Recruit an executive sponsor who will publicly cite experiment results — including surprising ones that contradict their own intuition.",
-      "Track and publish your experiment failure rate as a positive metric. Kohavi's benchmark: 10–15% success is normal. A high win rate signals under-ambitious hypotheses.",
-      "Run a monthly 'surprises' forum where teams share results that challenged assumptions. Normalize being wrong out loud.",
+      {
+        text: "Recruit an executive sponsor who will publicly cite experiment results — including surprising ones that contradict their own intuition.",
+        read: { title: "Experimentation Is a Culture, Not a Task", url: "https://amplitude.com/blog/experimentation-is-a-culture" },
+      },
+      {
+        text: "Track and publish your experiment failure rate as a positive metric. Kohavi's benchmark: 10–15% success is normal. A high win rate signals under-ambitious hypotheses.",
+        read: { title: "How to Find Value in a Failed A/B Test", url: "https://amplitude.com/blog/find-value-failed-ab-test" },
+      },
+      {
+        text: "Run a monthly 'surprises' forum where teams share results that challenged assumptions. Normalize being wrong out loud.",
+        read: { title: "Creating a Culture of Experimentation", url: "https://amplitude.com/blog/culture-of-experimentation" },
+      },
       "Invest in experimentation literacy across all functions with a short internal training (statistical basics, guardrail metrics, when not to test).",
     ],
   },
@@ -61,11 +76,17 @@ const CATEGORIES = [
     short: "Velocity",
     questionIds: [8, 9, 10],
     steps: [
-      "Set a target for tests-per-team-per-month and track cadence weekly. Aim for a step-change (e.g., 2x within two quarters).",
+      {
+        text: "Set a target for tests-per-team-per-month and track cadence weekly. Aim for a step-change (e.g., 2x within two quarters). Don't over-worry about experiment interactions — the research shows you can run many concurrent tests safely.",
+        read: { title: "A/B Interactions: A Call to Relax (Microsoft Research)", url: "https://www.microsoft.com/en-us/research/articles/a-b-interactions-a-call-to-relax/" },
+      },
       "Audit your idea-to-live pipeline and eliminate the single longest step — usually approvals, QA, or platform provisioning.",
       "Invest in self-serve tooling so PMs, marketers, and engineers can launch experiments without a data-science bottleneck.",
       "Treat every launched feature as a hypothesis: schedule follow-up iterations rather than shipping once and moving on.",
-      "Add a low-code experimentation solution so marketing and growth teams can launch tests without waiting on engineering — often the single highest-ROI move for velocity.",
+      {
+        text: "Add a low-code experimentation solution so marketing and growth teams can launch tests without waiting on engineering — often the single highest-ROI move for velocity.",
+        read: { title: "How Amplitude Uses Amplitude for No-Code Web Experimentation", url: "https://amplitude.com/blog/amplitude-team-web-experimentation" },
+      },
     ],
   },
   {
@@ -74,8 +95,14 @@ const CATEGORIES = [
     short: "Process",
     questionIds: [11, 12, 13, 14],
     steps: [
-      "Standardize a hypothesis template (problem → change → predicted outcome → metrics) that every experiment must fill in before launch.",
-      "Define reusable experiment templates that standardize hypothesis, metrics, guardrails, and analysis for the common test types you run.",
+      {
+        text: "Standardize a hypothesis template (problem → change → predicted outcome → metrics) that every experiment must fill in before launch.",
+        read: { title: "5 Overlooked Steps in A/B Testing", url: "https://amplitude.com/blog/overlooked-ab-test-steps" },
+      },
+      {
+        text: "Define reusable experiment templates that standardize hypothesis, metrics, guardrails, and analysis for the common test types you run.",
+        read: { title: "Use Experiment Briefs to Design Better Experiments", url: "https://amplitude.com/blog/experiment-brief" },
+      },
       "Adopt a prioritization framework (RICE, ICE, or PXL) and apply it consistently across all teams — inconsistency erodes trust in the pipeline.",
       "Build a searchable knowledge base for experiment write-ups so future teams don't rerun tests you've already learned from.",
       "Use session replay to strengthen ideation and background research — watching real user friction turns qualitative signal into testable hypotheses.",
@@ -88,8 +115,14 @@ const CATEGORIES = [
     short: "Metrics",
     questionIds: [15, 16, 17],
     steps: [
-      "Define a company-wide Overall Evaluation Criterion (OEC) that balances short-term revenue with long-term user satisfaction, following Kohavi's Bing model.",
-      "Establish a standard guardrail suite (latency, retention, crash rate, SRM check) that every experiment inherits automatically.",
+      {
+        text: "Define a company-wide Overall Evaluation Criterion (OEC) that balances short-term revenue with long-term user satisfaction, following Kohavi's Bing model.",
+        read: { title: "Webinar Recap: Elevating the Experimentation Maturity Model with Ronny Kohavi", url: "https://amplitude.com/blog/webinar-recap-ronny-kohavi" },
+      },
+      {
+        text: "Establish a standard guardrail suite (latency, retention, crash rate, SRM check) that every experiment inherits automatically.",
+        read: { title: "The Power of Continuous Learning in Product Management", url: "https://amplitude.com/blog/continuous-learning-benefits" },
+      },
       "Shift measurement from surface-level metrics (clicks, page views) to behavioral north-star metrics tied to retention and LTV.",
       "Bring in warehouse metrics rather than relying on proxy metrics — analyze experiments against the same governed definitions your business already trusts.",
       "Run periodic long-term holdouts to validate that short-term experiment wins actually deliver sustained impact.",
@@ -101,11 +134,20 @@ const CATEGORIES = [
     short: "Tools",
     questionIds: [18, 19, 20, 21],
     steps: [
-      "Roll out feature flags as standard practice for every product launch — decouple deployment from release so risky bets can be tested safely.",
+      {
+        text: "Roll out feature flags as standard practice for every product launch — decouple deployment from release so risky bets can be tested safely.",
+        read: { title: "A/B Testing and Feature Flagging Powered by Customer Behavior", url: "https://amplitude.com/blog/experiment-feature-management" },
+      },
       "Integrate your experimentation platform with your data warehouse and metric layer so results and analytics stay in sync.",
-      "Progress up the sophistication ladder: A/B → MVT → multi-armed bandits → contextual bandits and personalization.",
+      {
+        text: "Progress up the sophistication ladder: A/B → MVT → multi-armed bandits → contextual bandits and personalization.",
+        read: { title: "Multi-Armed Bandits vs. A/B Testing: Choosing the Right Approach", url: "https://amplitude.com/blog/multi-armed-bandit-vs-ab-testing" },
+      },
       "Add a feature experimentation solution (like Statsig) so teams can launch experiments anywhere in the stack — client, server, backend logic, or ML models.",
-      "Add a low-code experimentation solution to unlock marketing and growth teams without requiring engineering to ship each test.",
+      {
+        text: "Add a low-code experimentation solution to unlock marketing and growth teams without requiring engineering to ship each test.",
+        read: { title: "Self-Service A/B Testing Is Here", url: "https://amplitude.com/blog/amplitude-web-experimentation-launch" },
+      },
       "Bring in the Statsig team for a platform design review to align infrastructure choices with where you want your program in 12–18 months.",
     ],
   },
@@ -115,12 +157,24 @@ const CATEGORIES = [
     short: "AI",
     questionIds: [22, 23],
     steps: [
-      "Treat every AI change — model swap, prompt update, thinking-level change, tool/config change — as an experiment. Never ship AI changes to 100% without a measured comparison.",
-      "Stand up an offline eval harness against a golden dataset so prompt and model changes are scored before they reach production.",
+      {
+        text: "Treat every AI change — model swap, prompt update, thinking-level change, tool/config change — as an experiment. Never ship AI changes to 100% without a measured comparison.",
+        read: { title: "AI Broke Experimentation — Here's How to Fix It", url: "https://amplitude.com/blog/ai-broke-experimentation" },
+      },
+      {
+        text: "Stand up an offline eval harness against a golden dataset so prompt and model changes are scored before they reach production.",
+        read: { title: "Building the Validation Stack for AI Product Development", url: "https://amplitude.com/blog/building-the-validation-stack-for-ai-product-development" },
+      },
       "Instrument LLM-as-a-Judge scoring on production traffic so quality is measured continuously, not just at launch.",
-      "Track the full metric stack on every AI feature: quality score, error/refusal rate, user frustration signals (retries, thumbs-down, session abandonment), cost per request, and end-to-end latency.",
+      {
+        text: "Track the full metric stack on every AI feature: quality score, error/refusal rate, user frustration signals (retries, thumbs-down, session abandonment), cost per request, and end-to-end latency.",
+        read: { title: "How to Balance Inference Cost and User Experience for Agents", url: "https://amplitude.com/blog/agent-analytics-beta" },
+      },
       "Use Statsig to gate every AI change behind a feature flag, ramp progressively, monitor guardrails in real time, and roll back in seconds.",
-      "Use Amplitude to correlate AI feature quality with downstream product outcomes (retention, engagement, conversion) — quality in a vacuum doesn't matter if it doesn't move business metrics.",
+      {
+        text: "Use Amplitude to correlate AI feature quality with downstream product outcomes (retention, engagement, conversion) — quality in a vacuum doesn't matter if it doesn't move business metrics.",
+        read: { title: "Building an AI-First Product", url: "https://amplitude.com/blog/ai-first-product" },
+      },
     ],
   },
 ];
@@ -470,6 +524,17 @@ function esc(str) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
+}
+
+/* Steps in CATEGORIES can be a plain string or { text, read: { title, url } }.
+   These helpers normalize both forms. */
+function stepText(step) {
+  return typeof step === "string" ? step : step.text;
+}
+function stepReadHtml(step) {
+  if (typeof step !== "object" || !step || !step.read) return "";
+  const { title, url } = step.read;
+  return `<a class="step-read" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Read: ${esc(title)} →</a>`;
 }
 
 function screenId(step) {
@@ -841,7 +906,7 @@ function renderNextStepsCard(weakestCategory) {
       <p class="sub">This category scored lowest (${Math.round(weakestCategory.pct)}%). Focus here for the biggest lift.</p>
 
       <ul class="steps-list">
-        ${weakestCategory.steps.slice(0, 6).map((s) => `<li>${s}</li>`).join("")}
+        ${weakestCategory.steps.slice(0, 6).map((s) => `<li><span class="step-text">${stepText(s)}</span>${stepReadHtml(s)}</li>`).join("")}
       </ul>
     </div>
   `;
@@ -1120,7 +1185,7 @@ function renderAdminView(root) {
           <div class="eyebrow">Category-level next steps</div>
           <p class="sub">Shown on the results page when this is the user's weakest-scoring category (up to 6 items).</p>
           <ol class="admin-steps">
-            ${cat.steps.map((s) => `<li>${s}</li>`).join("")}
+            ${cat.steps.map((s) => `<li>${stepText(s)}${stepReadHtml(s)}</li>`).join("")}
           </ol>
         </div>
       </section>
