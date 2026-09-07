@@ -1017,16 +1017,13 @@ function renderGapsCard(weakestQuestions) {
   const MAX = 5;
   const total = weakestQuestions.length;
   const shown = weakestQuestions.slice(0, MAX);
-  const headline = total > MAX
-    ? `Top ${MAX} of ${total} lowest-scoring questions`
-    : `${total} question${total === 1 ? "" : "s"} scored lowest`;
 
   return `
     <details class="card gaps-card">
       <summary class="details-summary">
         <div class="details-heading">
           <div class="eyebrow">Specific gaps to address</div>
-          <h3>${headline}</h3>
+          <h3>Lowest scoring questions</h3>
         </div>
         <span class="details-caret" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -1037,7 +1034,7 @@ function renderGapsCard(weakestQuestions) {
       <div class="details-body">
         <p class="sub">
           ${total > MAX
-            ? `Showing the ${MAX} lowest-scoring questions — each is a discrete, actionable place to start.`
+            ? `Showing the ${MAX} lowest of ${total} — each is a discrete, actionable place to start.`
             : "Each of these is a discrete, actionable place to start."}
         </p>
         ${shown.map((wq) => {
