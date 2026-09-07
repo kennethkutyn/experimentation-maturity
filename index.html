@@ -3,14 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none';" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.amplitude.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self' https://api2.amplitude.com https://api.eu.amplitude.com https://api-sr.amplitude.com https://api-sr.eu.amplitude.com https://sr-client-cfg.amplitude.com https://sr-client-cfg.eu.amplitude.com; worker-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none';" />
   <title>Experimentation Maturity Assessment</title>
   <meta name="description" content="A free diagnostic to assess your organization's experimentation maturity across strategy, culture, velocity, process, metrics, and tools." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.amplitude.com">
+  <link rel="preconnect" href="https://api2.amplitude.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=23q-6" />
+  <link rel="stylesheet" href="styles.css?v=23q-7" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+  <!-- Amplitude Analytics + Session Replay -->
+  <script src="https://cdn.amplitude.com/script/747996c8c152e54584e72357295fb42e.js"></script>
+  <script src="analytics.js?v=23q-7"></script>
 </head>
 <body>
   <div class="app">
@@ -137,6 +142,6 @@
     </footer>
   </div>
 
-  <script src="app.js?v=23q-6"></script>
+  <script src="app.js?v=23q-7"></script>
 </body>
 </html>
