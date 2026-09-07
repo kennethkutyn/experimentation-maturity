@@ -1092,11 +1092,31 @@ function downloadPdf() {
   btn.textContent = "Preparing…";
   btn.disabled = true;
 
+  /* Render the PDF DOM ON-SCREEN (top-left corner) so html2canvas can
+     properly rasterize it. Cover it with an opaque overlay so users
+     see a "Preparing PDF…" message instead of the raw layout. */
   const container = buildPdfDocument();
   document.body.appendChild(container);
 
+  const overlay = document.createElement("div");
+  overlay.setAttribute("aria-live", "polite");
+  overlay.style.cssText = [
+    "position:fixed", "inset:0",
+    "background:rgba(11,13,23,0.72)",
+    "backdrop-filter:blur(6px)",
+    "-webkit-backdrop-filter:blur(6px)",
+    "z-index:2147483647",
+    "display:flex", "align-items:center", "justify-content:center",
+    "font-family:'Inter',-apple-system,'Helvetica Neue',Arial,sans-serif",
+    "color:#ffffff", "font-size:16px", "font-weight:600",
+    "letter-spacing:-0.005em",
+  ].join(";") + ";";
+  overlay.textContent = "Preparing your PDF…";
+  document.body.appendChild(overlay);
+
   const cleanup = () => {
     container.remove();
+    overlay.remove();
     btn.textContent = original;
     btn.disabled = false;
   };
@@ -1105,7 +1125,7 @@ function downloadPdf() {
     margin: [12, 12, 14, 12],
     filename: `experimentation-maturity-${(state.industry || "results").toLowerCase().replace(/[^a-z0-9]+/g, "-")}.pdf`,
     image: { type: "jpeg", quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff", windowWidth: 820 },
+    html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
     jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
     pagebreak: { mode: ["css", "legacy"], avoid: [".pdf-avoid-break"] },
   };
@@ -1118,7 +1138,7 @@ function downloadPdf() {
 
   html2pdf().set(opts).from(container).save()
     .then(cleanup)
-    .catch(() => { cleanup(); window.print(); });
+    .catch((err) => { console.error("PDF export failed:", err); cleanup(); window.print(); });
 }
 
 /* Builds a print-friendly DOM node containing the full results report.
@@ -1135,7 +1155,9 @@ function buildPdfDocument() {
 
   const wrap = document.createElement("div");
   wrap.setAttribute("aria-hidden", "true");
-  wrap.style.cssText = "position:absolute;left:-9999px;top:0;width:800px;background:#ffffff;";
+  /* Render on-screen at top-left so html2canvas can measure/rasterize
+     reliably. Overlay in downloadPdf() covers it visually. */
+  wrap.style.cssText = "position:fixed;top:0;left:0;width:800px;background:#ffffff;z-index:2147483646;pointer-events:none;";
 
   const stageColor = { 1: "#EF4444", 2: "#F59E0B", 3: "#38BDF8", 4: "#194BFB", 5: "#7B4FFF" }[stage.level];
 
