@@ -1062,7 +1062,7 @@ function renderContactCta() {
         <h3>Uplevel your experimentation program.</h3>
         <p>Chat with an Amplitude + Statsig expert today. We'll help you turn these next steps into a concrete plan — tooling, templates, and workshops tailored to where you are.</p>
       </div>
-      <a class="cta-btn" href="https://www.statsig.com/contact-sales" target="_blank" rel="noopener">Chat with an expert →</a>
+      <a class="cta-btn" href="https://www.statsig.com/contact/us?source=expmaturitytool" target="_blank" rel="noopener">Chat with an expert →</a>
     </div>
   `;
 }
@@ -1095,31 +1095,203 @@ function downloadPdf() {
   btn.textContent = "Preparing…";
   btn.disabled = true;
 
-  const root = document.getElementById("resultsRoot");
+  const container = buildPdfDocument();
+  document.body.appendChild(container);
+
+  const cleanup = () => {
+    container.remove();
+    btn.textContent = original;
+    btn.disabled = false;
+  };
+
   const opts = {
-    margin: [10, 10, 10, 10],
+    margin: [12, 12, 14, 12],
     filename: `experimentation-maturity-${(state.industry || "results").toLowerCase().replace(/[^a-z0-9]+/g, "-")}.pdf`,
     image: { type: "jpeg", quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
+    html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff", windowWidth: 820 },
     jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-    pagebreak: { mode: ["css", "legacy"] },
+    pagebreak: { mode: ["css", "legacy"], avoid: [".pdf-avoid-break"] },
   };
 
   if (typeof html2pdf === "undefined") {
+    cleanup();
     window.print();
-    btn.textContent = original;
-    btn.disabled = false;
     return;
   }
 
-  html2pdf().set(opts).from(root).save().then(() => {
-    btn.textContent = original;
-    btn.disabled = false;
-  }).catch(() => {
-    window.print();
-    btn.textContent = original;
-    btn.disabled = false;
-  });
+  html2pdf().set(opts).from(container).save()
+    .then(cleanup)
+    .catch(() => { cleanup(); window.print(); });
+}
+
+/* Builds a print-friendly DOM node containing the full results report.
+   Rendered off-screen with inline styles so it survives html2canvas
+   rasterization cleanly (no gradient text, no CSS filters, no <details>
+   collapse state, no oklch()/backdrop-filter). */
+function buildPdfDocument() {
+  const overall = computeOverall();
+  const stage = computeStage(overall.pct);
+  const cats = computeCategoryScores();
+  const weakest = [...cats].sort((a, b) => a.pct - b.pct)[0];
+  const weakQs = findWeakestQuestions().slice(0, 5);
+  const today = new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+
+  const wrap = document.createElement("div");
+  wrap.setAttribute("aria-hidden", "true");
+  wrap.style.cssText = "position:absolute;left:-9999px;top:0;width:800px;background:#ffffff;";
+
+  const stageColor = { 1: "#EF4444", 2: "#F59E0B", 3: "#38BDF8", 4: "#194BFB", 5: "#7B4FFF" }[stage.level];
+
+  wrap.innerHTML = `
+    <style>
+      .pdf-doc, .pdf-doc * { box-sizing: border-box; font-family: 'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif; color: #0B0D17; }
+      .pdf-doc { width: 800px; padding: 28px 32px; background: #ffffff; line-height: 1.5; }
+      .pdf-header { display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 14px; border-bottom: 2px solid #0B0D17; margin-bottom: 24px; }
+      .pdf-brand { font-weight: 800; font-size: 20px; letter-spacing: -0.02em; color: #0B0D17; }
+      .pdf-brand small { display: block; font-weight: 500; font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase; color: #5F6473; margin-top: 4px; }
+      .pdf-meta { text-align: right; font-size: 11px; color: #5F6473; line-height: 1.5; }
+      .pdf-meta strong { color: #0B0D17; font-weight: 600; }
+
+      .pdf-hero { padding: 28px 28px 24px; border-radius: 14px; background: #0B0D17; color: #ffffff; margin-bottom: 24px; page-break-inside: avoid; }
+      .pdf-hero-eyebrow { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.65); font-weight: 600; margin-bottom: 6px; }
+      .pdf-hero-stage { font-size: 42px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; padding-bottom: 4px; color: #ffffff; margin: 0 0 12px; }
+      .pdf-hero-score { display: flex; align-items: baseline; gap: 10px; margin: 0 0 16px; }
+      .pdf-hero-score .num { font-size: 40px; font-weight: 800; line-height: 1; color: #ffffff; letter-spacing: -0.02em; }
+      .pdf-hero-score .of { font-size: 15px; color: rgba(255,255,255,0.7); font-weight: 500; }
+      .pdf-hero-score .pct { margin-left: auto; padding: 4px 12px; background: rgba(255,255,255,0.14); color: #ffffff; border-radius: 999px; font-size: 12px; font-weight: 600; }
+      .pdf-hero-desc { font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.88); margin: 0 0 20px; }
+      .pdf-curve { display: flex; align-items: center; gap: 6px; padding: 14px 16px; background: rgba(255,255,255,0.06); border-radius: 10px; border: 1px solid rgba(255,255,255,0.10); }
+      .pdf-curve-stage { flex: 1; text-align: center; font-size: 10px; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; color: rgba(255,255,255,0.55); padding: 6px 0; border-radius: 6px; }
+      .pdf-curve-stage.active { color: #ffffff; background: ${stageColor}; }
+      .pdf-curve-sep { color: rgba(255,255,255,0.35); font-size: 10px; }
+
+      .pdf-section { margin-bottom: 28px; page-break-inside: avoid; }
+      .pdf-section h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.015em; margin: 0 0 4px; color: #0B0D17; }
+      .pdf-section .lede { font-size: 12px; color: #5F6473; margin: 0 0 14px; }
+
+      .pdf-cats { border: 1px solid #E8EAF0; border-radius: 12px; overflow: hidden; }
+      .pdf-cat-row { display: grid; grid-template-columns: 1fr 90px; gap: 4px 12px; padding: 12px 16px; border-top: 1px solid #E8EAF0; align-items: center; page-break-inside: avoid; }
+      .pdf-cat-row:first-child { border-top: none; }
+      .pdf-cat-name { font-weight: 600; font-size: 13px; color: #0B0D17; }
+      .pdf-cat-score { text-align: right; font-size: 13px; font-weight: 700; color: #0B0D17; font-variant-numeric: tabular-nums; }
+      .pdf-cat-score span { color: #5F6473; font-weight: 500; margin-left: 6px; }
+      .pdf-cat-bar { grid-column: 1 / -1; height: 7px; background: #F0F2F8; border-radius: 999px; overflow: hidden; }
+      .pdf-cat-bar-fill { height: 100%; border-radius: 999px; }
+      .pdf-cat-tag { grid-column: 1 / -1; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5F6473; padding-top: 4px; }
+
+      .pdf-priority { display: inline-block; padding: 3px 10px; background: #0B0D17; color: #ffffff; font-size: 10px; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; border-radius: 999px; margin-right: 10px; vertical-align: middle; }
+      .pdf-steps { padding: 0; margin: 0; list-style: none; }
+      .pdf-step { padding: 12px 14px; margin-bottom: 8px; background: #FAFBFD; border: 1px solid #E8EAF0; border-radius: 10px; page-break-inside: avoid; display: flex; gap: 12px; align-items: flex-start; }
+      .pdf-step::before { content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; background: #0B0D17; margin-top: 7px; }
+      .pdf-step-body { flex: 1; min-width: 0; }
+      .pdf-step-text { font-size: 13px; line-height: 1.55; color: #23263A; }
+      .pdf-step-reads { margin-top: 8px; font-size: 11px; color: #5F6473; line-height: 1.6; }
+      .pdf-step-reads a { color: #0B0D17; text-decoration: none; word-break: break-word; }
+      .pdf-step-reads a strong { font-weight: 700; }
+      .pdf-step-reads .sep { color: #C7CBD8; margin: 0 6px; }
+
+      .pdf-gap { padding: 10px 12px 12px; margin-bottom: 8px; border-left: 3px solid #F59E0B; background: #FFFBEB; border-radius: 6px; page-break-inside: avoid; }
+      .pdf-gap-cat { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5F6473; margin-bottom: 2px; }
+      .pdf-gap-q { font-size: 12px; font-weight: 600; color: #0B0D17; margin-bottom: 6px; }
+      .pdf-gap-a { font-size: 12px; color: #23263A; line-height: 1.55; }
+
+      .pdf-cta { margin-top: 24px; padding: 18px 22px; border-radius: 12px; background: #0B0D17; color: #ffffff; page-break-inside: avoid; }
+      .pdf-cta h3 { margin: 0 0 6px; font-size: 16px; font-weight: 700; color: #ffffff; }
+      .pdf-cta p { margin: 0 0 8px; font-size: 12px; color: rgba(255,255,255,0.8); }
+      .pdf-cta a { color: #C7D2FE; font-size: 12px; font-weight: 600; text-decoration: none; word-break: break-all; }
+
+      .pdf-footer { margin-top: 18px; padding-top: 12px; border-top: 1px solid #E8EAF0; font-size: 10px; color: #9AA0B4; text-align: center; }
+    </style>
+
+    <div class="pdf-doc">
+      <div class="pdf-header pdf-avoid-break">
+        <div class="pdf-brand">
+          Statsig
+          <small>Experimentation Maturity Assessment</small>
+        </div>
+        <div class="pdf-meta">
+          <div><strong>Industry:</strong> ${esc(state.industry) || "—"}</div>
+          <div><strong>Company size:</strong> ${esc(state.size) || "—"}</div>
+          <div>${today}</div>
+        </div>
+      </div>
+
+      <div class="pdf-hero pdf-avoid-break">
+        <div class="pdf-hero-eyebrow">Your experimentation maturity</div>
+        <div class="pdf-hero-stage">${esc(stage.name)}</div>
+        <div class="pdf-hero-score">
+          <span class="num">${overall.total}</span>
+          <span class="of">/ ${overall.max}</span>
+          <span class="pct">${Math.round(overall.pct)}%</span>
+        </div>
+        <div class="pdf-hero-desc">${esc(stage.desc)}</div>
+        <div class="pdf-curve">
+          ${STAGES.map((s, i) => `
+            ${i > 0 ? '<span class="pdf-curve-sep">›</span>' : ""}
+            <div class="pdf-curve-stage${s.level === stage.level ? " active" : ""}">${esc(s.name)}</div>
+          `).join("")}
+        </div>
+      </div>
+
+      <div class="pdf-section pdf-avoid-break">
+        <h2>Category breakdown</h2>
+        <p class="lede">How you scored across the ${CATEGORIES.length} dimensions.</p>
+        <div class="pdf-cats">
+          ${cats.map((c) => `
+            <div class="pdf-cat-row">
+              <div class="pdf-cat-name">${esc(c.name)}</div>
+              <div class="pdf-cat-score">${c.total}<span>/ ${c.max}</span></div>
+              <div class="pdf-cat-bar"><div class="pdf-cat-bar-fill" style="width:${Math.max(6, c.pct)}%;background:${c.stage.color}"></div></div>
+              <div class="pdf-cat-tag">${esc(c.stage.name)} · ${Math.round(c.pct)}%</div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+
+      <div class="pdf-section">
+        <h2><span class="pdf-priority">Priority</span>${esc(weakest.name)}</h2>
+        <p class="lede">This category scored lowest (${Math.round(weakest.pct)}%). Focus here for the biggest lift.</p>
+        <ul class="pdf-steps">
+          ${weakest.steps.slice(0, 6).map((s) => {
+            const t = stepText(s);
+            const reads = (typeof s === "object" && s.read) ? s.read : [];
+            const readsHtml = reads.length
+              ? `<div class="pdf-step-reads"><strong>Read:</strong> ${reads.map((r) => `<a href="${esc(r.url)}">${esc(r.title)}</a>`).join('<span class="sep">·</span>')}</div>`
+              : "";
+            return `<li class="pdf-step"><div class="pdf-step-body"><div class="pdf-step-text">${esc(t)}</div>${readsHtml}</div></li>`;
+          }).join("")}
+        </ul>
+      </div>
+
+      ${weakQs.length > 0 ? `
+        <div class="pdf-section">
+          <h2>Specific gaps to address</h2>
+          <p class="lede">${weakQs.length === 1 ? "1 question" : `${weakQs.length} questions`} scored in the lowest band. Each is a discrete, actionable place to start.</p>
+          ${weakQs.map((wq) => {
+            const cat = CATEGORIES.find((c) => c.key === wq.q.category);
+            return `
+              <div class="pdf-gap">
+                <div class="pdf-gap-cat">${esc(cat.short)}</div>
+                <div class="pdf-gap-q">${esc(wq.q.q)}</div>
+                <div class="pdf-gap-a">${esc(wq.q.weakAdvice)}</div>
+              </div>
+            `;
+          }).join("")}
+        </div>
+      ` : ""}
+
+      <div class="pdf-cta pdf-avoid-break">
+        <h3>Uplevel your experimentation program.</h3>
+        <p>Chat with an Amplitude + Statsig expert — we'll help turn these next steps into a concrete plan.</p>
+        <a href="https://www.statsig.com/contact/us?source=expmaturitytool">statsig.com/contact/us?source=expmaturitytool</a>
+      </div>
+
+      <div class="pdf-footer">
+        Generated with the Experimentation Maturity Assessment · kennethkutyn.github.io/experimentation-maturity
+      </div>
+    </div>
+  `;
+  return wrap;
 }
 
 function copyShareLink() {
