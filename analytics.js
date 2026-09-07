@@ -1,10 +1,16 @@
 /* =============================================================
- * Analytics initialization: Amplitude (+ Session Replay) and Statsig.
+ * Analytics initialization.
+ *   Amplitude   → all custom analytics events + Session Replay
+ *   Statsig     → feature gates / experiments / dynamic configs
+ *                 (SDK auto-logs exposure events; we do NOT fire
+ *                  custom events to it)
+ *
  * Exposes:
- *   window.__track(name, props)    fires to both SDKs
- *   window.__identify(props)       user props → Amplitude
- *   window.__statsig               the StatsigClient once ready
- * Safe if a script is blocked: the helpers no-op, calls never throw.
+ *   window.__track(name, props)    → Amplitude only
+ *   window.__identify(props)       → Amplitude user properties
+ *   window.__statsig               → the StatsigClient once ready,
+ *                                    for getFeatureGate / getExperiment
+ * Safe if a script is blocked: helpers no-op, calls never throw.
  * ============================================================= */
 (function () {
   var AMP_KEY = "747996c8c152e54584e72357295fb42e";
@@ -54,9 +60,9 @@
   }
 
   /* -------------------- Statsig -------------------- */
-  var statsigClient = null;
-  var statsigQueue = [];
-
+  /* Initialized only so the SDK can serve feature gates / experiments /
+     dynamic configs. The SDK auto-logs exposure events as those APIs
+     are called — we intentionally do not send custom events here. */
   function StatsigCtor() {
     return (window.Statsig && window.Statsig.StatsigClient)
         || window.StatsigClient
@@ -69,47 +75,15 @@
     try {
       var client = new Ctor(STATSIG_KEY, { userID: userId });
       client.initializeAsync()
-        .then(function () {
-          statsigClient = client;
-          window.__statsig = client;
-          /* Flush queued events. */
-          statsigQueue.forEach(function (ev) {
-            try { client.logEvent(ev); } catch (e) {}
-          });
-          statsigQueue = [];
-        })
+        .then(function () { window.__statsig = client; })
         .catch(function () { /* offline / blocked — silent */ });
     } catch (e) {}
   })();
 
-  /* Statsig event metadata must be flat string-keyed strings.
-     Coerce non-string values (numbers, bools, objects) safely. */
-  function normalizeMetadata(props) {
-    var out = {};
-    Object.keys(props || {}).forEach(function (k) {
-      var v = props[k];
-      if (v == null) return;
-      out[k] = (typeof v === "object") ? JSON.stringify(v) : String(v);
-    });
-    return out;
-  }
-
   /* -------------------- Public API -------------------- */
   window.__track = function (name, properties) {
-    var props = properties || {};
-
-    /* Amplitude */
-    if (ampReady) {
-      try { window.amplitude.track(name, props); } catch (e) {}
-    }
-
-    /* Statsig */
-    var ev = { eventName: name, metadata: normalizeMetadata(props) };
-    if (statsigClient) {
-      try { statsigClient.logEvent(ev); } catch (e) {}
-    } else {
-      statsigQueue.push(ev);
-    }
+    if (!ampReady) return;
+    try { window.amplitude.track(name, properties || {}); } catch (e) {}
   };
 
   window.__identify = function (props) {
