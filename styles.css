@@ -688,11 +688,16 @@ details[open] > .details-summary .details-caret { transform: rotate(180deg); col
   padding-right: 1px; /* optical centering for → glyph */
 }
 .steps-list li .step-text { display: block; }
+.step-reads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
 .step-read {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  margin-top: 10px;
   font-size: 13px;
   color: var(--ink-2);
   text-decoration: none;
@@ -710,11 +715,8 @@ details[open] > .details-summary .details-caret { transform: rotate(180deg); col
   background: var(--bg-2);
 }
 /* Slightly tighter style inside the admin dense list */
-.admin-steps .step-read {
-  margin-top: 6px;
-  font-size: 12px;
-  padding: 3px 10px;
-}
+.admin-steps .step-reads { margin-top: 6px; gap: 4px; }
+.admin-steps .step-read { font-size: 12px; padding: 3px 10px; }
 
 .gaps-section h3 { margin-top: 12px; }
 .gap-item {
