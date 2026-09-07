@@ -109,6 +109,20 @@ const CATEGORIES = [
       "Bring in the Statsig team for a platform design review to align infrastructure choices with where you want your program in 12–18 months.",
     ],
   },
+  {
+    key: "ai",
+    name: "AI Product Experimentation",
+    short: "AI",
+    questionIds: [22, 23],
+    steps: [
+      "Treat every AI change — model swap, prompt update, thinking-level change, tool/config change — as an experiment. Never ship AI changes to 100% without a measured comparison.",
+      "Stand up an offline eval harness against a golden dataset so prompt and model changes are scored before they reach production.",
+      "Instrument LLM-as-a-Judge scoring on production traffic so quality is measured continuously, not just at launch.",
+      "Track the full metric stack on every AI feature: quality score, error/refusal rate, user frustration signals (retries, thumbs-down, session abandonment), cost per request, and end-to-end latency.",
+      "Use Statsig to gate every AI change behind a feature flag, ramp progressively, monitor guardrails in real time, and roll back in seconds.",
+      "Use Amplitude to correlate AI feature quality with downstream product outcomes (retention, engagement, conversion) — quality in a vacuum doesn't matter if it doesn't move business metrics.",
+    ],
+  },
 ];
 
 /* Questions. Each option array is ordered 1..5 (least → most mature). */
@@ -376,6 +390,32 @@ const QUESTIONS = [
     ],
     weakAdvice: "Client-only tests limit you to UI changes. Server-side testing unlocks pricing, ranking, and backend logic — where most business impact lives.",
   },
+
+  /* --- AI Product Experimentation --- */
+  {
+    id: 22, category: "ai",
+    q: "How does your team ship changes to AI/LLM features (model swaps, prompt updates, thinking-level changes, tool or config changes)?",
+    options: [
+      "We don't ship AI features — or we push AI changes to 100% of traffic without measurement.",
+      "We eyeball a handful of outputs manually, then ship.",
+      "We run offline evals on a sample dataset before shipping.",
+      "We A/B test material AI changes on a subset of traffic with at least one quality metric.",
+      "Every AI change flows through a controlled experiment with production evals, guardrails, and progressive rollout.",
+    ],
+    weakAdvice: "Every prompt tweak, model swap, or thinking-level change is a new hypothesis. Gate them behind feature flags and measure quality, cost, and latency on a subset of traffic before you ramp — untested AI changes are the fastest way to ship a regression you can't see.",
+  },
+  {
+    id: 23, category: "ai",
+    q: "What signals do you capture to evaluate AI/LLM features in production?",
+    options: [
+      "We rely on user complaints or manual review as the primary quality signal.",
+      "We track a single dimension (usually cost or latency) — quality is subjective.",
+      "We track quality via periodic manual review plus a couple of ops metrics.",
+      "We track a broad set — quality, error rate, latency, cost — but mostly via offline evals.",
+      "We run LLM-as-a-Judge evals in production with automated quality scoring alongside error rate, user frustration signals (retries, thumbs-down, abandonment), cost per request, and latency.",
+    ],
+    weakAdvice: "Manual review doesn't scale and user complaints are a lagging indicator. Instrument LLM-as-a-Judge scoring in production and track the full stack: quality, error/refusal rate, user frustration (retries, thumbs-down, session abandonment), cost per request, and latency — for every AI-powered surface.",
+  },
 ];
 
 /* Five maturity stages. */
@@ -461,7 +501,7 @@ function updateProgress(step) {
   }
   progressEl.classList.add("visible");
 
-  const totalSteps = 2 + QUESTIONS.length + 1; /* industry, size, 21 questions, submit */
+  const totalSteps = 2 + QUESTIONS.length + 1; /* industry, size, N questions, submit */
   const done = step - 1; /* step 1 (industry) → done=0 progress-wise */
   const pct = Math.min(100, Math.max(0, ((done + 0) / totalSteps) * 100));
   fillEl.style.width = pct + "%";
