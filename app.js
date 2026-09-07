@@ -421,6 +421,17 @@ const STEP_KEYS = {
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => Array.from(document.querySelectorAll(sel));
 
+/* HTML-escape user-controlled strings before interpolating into innerHTML. */
+function esc(str) {
+  if (str == null) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function screenId(step) {
   if (step === STEP_KEYS.WELCOME)   return "screen-welcome";
   if (step === STEP_KEYS.INDUSTRY)  return "screen-industry";
@@ -487,8 +498,10 @@ function tryLoadFromUrl() {
   const answers = r.split("").map((c) => parseInt(c, 10));
   if (answers.some((a) => !(a >= 1 && a <= 5))) return false;
   state.answers = answers;
-  state.industry = i || "Unknown";
-  state.size = s || "Unknown";
+  /* Only accept industry/size values from the known allow-lists.
+     Anything else (including XSS payloads) is discarded. */
+  state.industry = INDUSTRIES.includes(i) ? i : "Unknown";
+  state.size = SIZES.some((sz) => sz.label === s) ? s : "Unknown";
   state.step = STEP_KEYS.RESULTS;
   return true;
 }
@@ -614,11 +627,11 @@ function renderSubmit() {
   grid.innerHTML = `
     <div class="summary-cell">
       <div class="summary-cell-label">Industry</div>
-      <div class="summary-cell-value">${state.industry || "—"}</div>
+      <div class="summary-cell-value">${esc(state.industry) || "—"}</div>
     </div>
     <div class="summary-cell">
       <div class="summary-cell-label">Company size</div>
-      <div class="summary-cell-value">${state.size || "—"}</div>
+      <div class="summary-cell-value">${esc(state.size) || "—"}</div>
     </div>
     <div class="summary-cell">
       <div class="summary-cell-label">Questions answered</div>
@@ -956,6 +969,7 @@ function retake() {
 
 /* Placeholder — real POST endpoint will be added later. */
 function submitBenchmark() {
+  /* eslint-disable no-unused-vars */
   const payload = {
     industry: state.industry,
     size: state.size,
@@ -963,9 +977,7 @@ function submitBenchmark() {
     submittedAt: new Date().toISOString(),
     version: "1.0",
   };
-  /* eslint-disable no-console */
-  console.log("[benchmark] would submit:", payload);
-  /* Uncomment and set endpoint when backend is ready:
+  /* Wire when backend is ready:
      fetch("/api/benchmark", {
        method: "POST",
        headers: { "Content-Type": "application/json" },
@@ -1105,6 +1117,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const header = document.querySelector(".header");
     if (header) header.classList.toggle("scrolled", window.scrollY > 6);
   }, { passive: true });
+
+  /* Delegated click handler for [data-action] buttons — avoids inline onclick
+     so a strict CSP with script-src 'self' (no 'unsafe-inline') will work. */
+  document.addEventListener("click", (e) => {
+    const target = e.target.closest("[data-action]");
+    if (!target) return;
+    const action = target.dataset.action;
+    if (app && typeof app[action] === "function") app[action]();
+  });
 
   /* Admin view mode */
   const adminRoot = document.getElementById("adminRoot");
