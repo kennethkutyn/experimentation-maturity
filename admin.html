@@ -3,17 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.amplitude.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data:; connect-src 'self' https://api2.amplitude.com https://api.eu.amplitude.com https://api-sr.amplitude.com https://api-sr.eu.amplitude.com https://sr-client-cfg.amplitude.com https://sr-client-cfg.eu.amplitude.com; worker-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none';" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.amplitude.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data:; connect-src 'self' https://api2.amplitude.com https://api.eu.amplitude.com https://api-sr.amplitude.com https://api-sr.eu.amplitude.com https://sr-client-cfg.amplitude.com https://sr-client-cfg.eu.amplitude.com https://api.statsig.com https://api.statsigcdn.com https://events.statsigapi.net https://featureassets.org https://featuregates.org https://prodregistryv2.org; worker-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none';" />
   <title>Admin · Experimentation Maturity Assessment</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdn.amplitude.com">
   <link rel="preconnect" href="https://api2.amplitude.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://api.statsigcdn.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=23q-7" />
+  <link rel="stylesheet" href="styles.css?v=23q-8" />
   <script src="https://cdn.amplitude.com/script/747996c8c152e54584e72357295fb42e.js"></script>
-  <script src="analytics.js?v=23q-7"></script>
-  <script src="app.js?v=23q-7" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@statsig/js-client@3.33.5/build/statsig-js-client.min.js" integrity="sha384-7qruGDfkOFQkUBVMV2NVuQW0wVZ5vvvFzTt5iGPZVO4bXwb+4DqbsRa40UXMJqP9" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="analytics.js?v=23q-8"></script>
+  <script src="app.js?v=23q-8" defer></script>
 </head>
 <body>
   <div class="app">
