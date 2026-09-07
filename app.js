@@ -42,15 +42,15 @@ const CATEGORIES = [
       },
       {
         text: "Publish an experimentation charter that ties test priorities to company OKRs, and review it quarterly with the leadership team.",
-        read: [{ title: "The Rise of Experimentation as the Industry Standard", url: "https://statsig.com/blog/the-rise-of-experimentation" }],
+        read: [{ title: "The Rise of Experimentation", url: "https://statsig.com/blog/the-rise-of-experimentation" }],
       },
       {
         text: "Expand experimentation beyond product and growth into marketing, pricing, support, and operations — pick one non-obvious surface this quarter.",
-        read: [{ title: "5 Trends Shaping the Future of A/B Testing", url: "https://amplitude.com/blog/ab-testing-trends" }],
+        read: [{ title: "5 Trends in A/B Testing", url: "https://amplitude.com/blog/ab-testing-trends" }],
       },
       {
         text: "Have your CEO or CPO cite an experiment result in their next all-hands or board update. Public rituals shift what teams believe leadership values.",
-        read: [{ title: "How Culture Drives Successful Experimentation Outcomes", url: "https://statsig.com/blog/how-culture-drives-successful-experimentation" }],
+        read: [{ title: "How Culture Drives Experimentation", url: "https://statsig.com/blog/how-culture-drives-successful-experimentation" }],
       },
       "Run a program design workshop with the Statsig team to shape your experimentation vision, roadmap, and cross-functional operating model.",
     ],
@@ -68,7 +68,7 @@ const CATEGORIES = [
       {
         text: "Track and publish your experiment failure rate as a positive metric. Kohavi's benchmark: 10–15% success is normal. A high win rate signals under-ambitious hypotheses.",
         read: [
-          { title: "How to Find Value in a Failed A/B Test", url: "https://amplitude.com/blog/find-value-failed-ab-test" },
+          { title: "Finding Value in a Failed A/B Test", url: "https://amplitude.com/blog/find-value-failed-ab-test" },
           { title: "Why Data and Intuition Aren't Enemies", url: "https://statsig.com/blog/why-data-and-intuition-arent-enemies" },
         ],
       },
@@ -78,7 +78,7 @@ const CATEGORIES = [
       },
       {
         text: "Invest in experimentation literacy across all functions with a short internal training (statistical basics, guardrail metrics, when not to test).",
-        read: [{ title: "The Story Behind Statsig University", url: "https://statsig.com/blog/helping-customers-move-faster-the-story-behind-statsig-university" }],
+        read: [{ title: "Statsig University", url: "https://statsig.com/blog/helping-customers-move-faster-the-story-behind-statsig-university" }],
       },
     ],
   },
@@ -91,24 +91,24 @@ const CATEGORIES = [
       {
         text: "Set a target for tests-per-team-per-month and track cadence weekly. Aim for a step-change (e.g., 2x within two quarters). Don't over-worry about experiment interactions — the research shows you can run many concurrent tests safely.",
         read: [
-          { title: "A/B Interactions: A Call to Relax (Microsoft Research)", url: "https://www.microsoft.com/en-us/research/articles/a-b-interactions-a-call-to-relax/" },
+          { title: "A/B Interactions: A Call to Relax", url: "https://www.microsoft.com/en-us/research/articles/a-b-interactions-a-call-to-relax/" },
           { title: "Speeding up A/B Tests with Discipline", url: "https://statsig.com/blog/speeding-up-a-b-tests-with-discipline" },
         ],
       },
       {
         text: "Audit your idea-to-live pipeline and eliminate the single longest step — usually approvals, QA, or platform provisioning.",
-        read: [{ title: "Top 8 Common Experimentation Mistakes and How to Fix Them", url: "https://statsig.com/blog/top-8-common-experimentation-mistakes-how-to-fix" }],
+        read: [{ title: "Top 8 Experimentation Mistakes", url: "https://statsig.com/blog/top-8-common-experimentation-mistakes-how-to-fix" }],
       },
       "Invest in self-serve tooling so PMs, marketers, and engineers can launch experiments without a data-science bottleneck.",
       {
         text: "Treat every launched feature as a hypothesis: schedule follow-up iterations rather than shipping once and moving on.",
-        read: [{ title: "Chasing Metrics, Not Tasks: Why Outcome-Obsessed PMs Win", url: "https://statsig.com/blog/chasing-metrics-not-tasks-why-outcome-obsessed-pms-win" }],
+        read: [{ title: "Chasing Metrics, Not Tasks", url: "https://statsig.com/blog/chasing-metrics-not-tasks-why-outcome-obsessed-pms-win" }],
       },
       {
         text: "Add a low-code experimentation solution so marketing and growth teams can launch tests without waiting on engineering — often the single highest-ROI move for velocity.",
         read: [
-          { title: "How Amplitude Uses Amplitude for No-Code Web Experimentation", url: "https://amplitude.com/blog/amplitude-team-web-experimentation" },
-          { title: "Statsig Sidecar: Website A/B Tests Made Easy", url: "https://statsig.com/blog/statsig-sidecar-website-ab-tests" },
+          { title: "No-Code Web Experimentation at Amplitude", url: "https://amplitude.com/blog/amplitude-team-web-experimentation" },
+          { title: "Statsig Sidecar for Website A/B Tests", url: "https://statsig.com/blog/statsig-sidecar-website-ab-tests" },
         ],
       },
     ],
@@ -129,21 +129,21 @@ const CATEGORIES = [
       {
         text: "Define reusable experiment templates that standardize hypothesis, metrics, guardrails, and analysis for the common test types you run.",
         read: [
-          { title: "Use Experiment Briefs to Design Better Experiments", url: "https://amplitude.com/blog/experiment-brief" },
-          { title: "Introducing Experiment Templates: Streamline your A/B Testing", url: "https://statsig.com/blog/experiment-templates-streamline-ab-testing" },
+          { title: "Design Better Experiments with Briefs", url: "https://amplitude.com/blog/experiment-brief" },
+          { title: "Statsig Experiment Templates", url: "https://statsig.com/blog/experiment-templates-streamline-ab-testing" },
         ],
       },
       {
         text: "Adopt a prioritization framework (RICE, ICE, or PXL) and apply it consistently across all teams — inconsistency erodes trust in the pipeline.",
-        read: [{ title: "PM Roundtable: How Do You Prioritize Experiments?", url: "https://statsig.com/blog/pm-roundtable-prioritize-experiments" }],
+        read: [{ title: "PM Roundtable: Prioritizing Experiments", url: "https://statsig.com/blog/pm-roundtable-prioritize-experiments" }],
       },
       {
         text: "Build a searchable knowledge base for experiment write-ups so future teams don't rerun tests you've already learned from.",
-        read: [{ title: "Introducing Experimental Meta-Analysis and the Knowledge Base", url: "https://statsig.com/blog/experimental-meta-analysis-and-knowledge-base" }],
+        read: [{ title: "Meta-Analysis and the Knowledge Base", url: "https://statsig.com/blog/experimental-meta-analysis-and-knowledge-base" }],
       },
       {
         text: "Use session replay to strengthen ideation and background research — watching real user friction turns qualitative signal into testable hypotheses.",
-        read: [{ title: "5 Cool Things to Do with Session Replay Right Now", url: "https://statsig.com/blog/session-replay-things-to-try" }],
+        read: [{ title: "5 Things to Do with Session Replay", url: "https://statsig.com/blog/session-replay-things-to-try" }],
       },
       "Run an experiment ideation workshop with the Statsig team to seed your backlog with high-quality, testable hypotheses.",
     ],
@@ -157,28 +157,28 @@ const CATEGORIES = [
       {
         text: "Define a company-wide Overall Evaluation Criterion (OEC) that balances short-term revenue with long-term user satisfaction, following Kohavi's Bing model.",
         read: [
-          { title: "Webinar Recap: Elevating the Experimentation Maturity Model (Kohavi)", url: "https://amplitude.com/blog/webinar-recap-ronny-kohavi" },
-          { title: "Decoding Metrics and Experimentation with Ron Kohavi", url: "https://statsig.com/blog/decoding-metrics-ron-kohavi" },
+          { title: "Elevating the Maturity Model (Kohavi)", url: "https://amplitude.com/blog/webinar-recap-ronny-kohavi" },
+          { title: "Decoding Metrics with Ron Kohavi", url: "https://statsig.com/blog/decoding-metrics-ron-kohavi" },
         ],
       },
       {
         text: "Establish a standard guardrail suite (latency, retention, crash rate, SRM check) that every experiment inherits automatically.",
         read: [
-          { title: "The Power of Continuous Learning in Product Management", url: "https://amplitude.com/blog/continuous-learning-benefits" },
-          { title: "What Are Guardrail Metrics in A/B Tests?", url: "https://statsig.com/blog/what-are-guardrail-metrics-in-ab-tests" },
+          { title: "The Power of Continuous Learning", url: "https://amplitude.com/blog/continuous-learning-benefits" },
+          { title: "What Are Guardrail Metrics?", url: "https://statsig.com/blog/what-are-guardrail-metrics-in-ab-tests" },
         ],
       },
       {
         text: "Shift measurement from surface-level metrics (clicks, page views) to behavioral north-star metrics tied to retention and LTV.",
-        read: [{ title: "How to Pick Metrics That Make or Break Your Experiments", url: "https://statsig.com/blog/product-metrics-that-make-or-break-your-experiments" }],
+        read: [{ title: "Metrics That Make or Break Experiments", url: "https://statsig.com/blog/product-metrics-that-make-or-break-your-experiments" }],
       },
       {
         text: "Bring in warehouse metrics rather than relying on proxy metrics — analyze experiments against the same governed definitions your business already trusts.",
-        read: [{ title: "Why Warehouse Native Experimentation", url: "https://statsig.com/blog/warehouse-native-experimentation-value-props" }],
+        read: [{ title: "Why Warehouse-Native Experimentation", url: "https://statsig.com/blog/warehouse-native-experimentation-value-props" }],
       },
       {
         text: "Run periodic long-term holdouts to validate that short-term experiment wins actually deliver sustained impact.",
-        read: [{ title: "How to Monitor the Long-Term Effects of Your Experiment", url: "https://statsig.com/blog/how-to-monitor-the-long-term-effects-of-your-experiment" }],
+        read: [{ title: "Monitoring Long-Term Experiment Effects", url: "https://statsig.com/blog/how-to-monitor-the-long-term-effects-of-your-experiment" }],
       },
     ],
   },
@@ -191,27 +191,27 @@ const CATEGORIES = [
       {
         text: "Roll out feature flags as standard practice for every product launch — decouple deployment from release so risky bets can be tested safely.",
         read: [
-          { title: "A/B Testing and Feature Flagging Powered by Customer Behavior", url: "https://amplitude.com/blog/experiment-feature-management" },
-          { title: "The Distinction Between Experiments and Feature Flags", url: "https://statsig.com/blog/distinction-between-experiments-and-feature-flags" },
+          { title: "A/B Testing + Feature Flagging (Amplitude)", url: "https://amplitude.com/blog/experiment-feature-management" },
+          { title: "Experiments vs. Feature Flags", url: "https://statsig.com/blog/distinction-between-experiments-and-feature-flags" },
         ],
       },
       {
         text: "Integrate your experimentation platform with your data warehouse and metric layer so results and analytics stay in sync.",
-        read: [{ title: "How to Build a Metrics Library on Statsig with Best Practices", url: "https://statsig.com/blog/how-to-build-metrics-library-statsig-best-practices" }],
+        read: [{ title: "Building a Metrics Library on Statsig", url: "https://statsig.com/blog/how-to-build-metrics-library-statsig-best-practices" }],
       },
       {
         text: "Progress up the sophistication ladder: A/B → MVT → multi-armed bandits → contextual bandits and personalization.",
         read: [
-          { title: "Multi-Armed Bandits vs. A/B Testing: Choosing the Right Approach", url: "https://amplitude.com/blog/multi-armed-bandit-vs-ab-testing" },
-          { title: "Statsig's Autotune Adds Contextual Bandits for Personalization", url: "https://statsig.com/blog/statsig-autotune-contextual-bandits-personalization" },
+          { title: "Multi-Armed Bandits vs. A/B Testing", url: "https://amplitude.com/blog/multi-armed-bandit-vs-ab-testing" },
+          { title: "Statsig Autotune: Contextual Bandits", url: "https://statsig.com/blog/statsig-autotune-contextual-bandits-personalization" },
         ],
       },
       "Add a feature experimentation solution (like Statsig) so teams can launch experiments anywhere in the stack — client, server, backend logic, or ML models.",
       {
         text: "Add a low-code experimentation solution to unlock marketing and growth teams without requiring engineering to ship each test.",
         read: [
-          { title: "Self-Service A/B Testing Is Here", url: "https://amplitude.com/blog/amplitude-web-experimentation-launch" },
-          { title: "No-Code Product Experimentation Using Layers on Statsig", url: "https://statsig.com/blog/no-code-experimentation-layers" },
+          { title: "Self-Service A/B Testing (Amplitude)", url: "https://amplitude.com/blog/amplitude-web-experimentation-launch" },
+          { title: "No-Code Experimentation with Statsig Layers", url: "https://statsig.com/blog/no-code-experimentation-layers" },
         ],
       },
       "Bring in the Statsig team for a platform design review to align infrastructure choices with where you want your program in 12–18 months.",
@@ -226,40 +226,40 @@ const CATEGORIES = [
       {
         text: "Treat every AI change — model swap, prompt update, thinking-level change, tool/config change — as an experiment. Never ship AI changes to 100% without a measured comparison.",
         read: [
-          { title: "AI Broke Experimentation — Here's How to Fix It", url: "https://amplitude.com/blog/ai-broke-experimentation" },
-          { title: "Experimentation and AI: 4 Trends We're Seeing", url: "https://statsig.com/blog/experimentation-and-ai-trend" },
+          { title: "AI Broke Experimentation", url: "https://amplitude.com/blog/ai-broke-experimentation" },
+          { title: "4 Trends in AI Experimentation", url: "https://statsig.com/blog/experimentation-and-ai-trend" },
         ],
       },
       {
         text: "Stand up an offline eval harness against a golden dataset so prompt and model changes are scored before they reach production.",
         read: [
-          { title: "Building the Validation Stack for AI Product Development", url: "https://amplitude.com/blog/building-the-validation-stack-for-ai-product-development" },
-          { title: "How We Optimized Statbot Using Statsig (AI Evals + Experimentation)", url: "https://statsig.com/blog/statbot-ai-evals-experimentation" },
+          { title: "Building the AI Validation Stack", url: "https://amplitude.com/blog/building-the-validation-stack-for-ai-product-development" },
+          { title: "How We Optimized Statbot with Evals", url: "https://statsig.com/blog/statbot-ai-evals-experimentation" },
         ],
       },
       {
         text: "Instrument LLM-as-a-Judge scoring on production traffic so quality is measured continuously, not just at launch.",
         read: [
-          { title: "Beyond Prompts: A Data-Driven Approach to LLM Optimization", url: "https://statsig.com/blog/llm-optimization-online-experimentation" },
-          { title: "Introducing AI Prompt Experiments on Statsig", url: "https://statsig.com/blog/ai-prompt-experiments" },
+          { title: "Beyond Prompts: LLM Optimization", url: "https://statsig.com/blog/llm-optimization-online-experimentation" },
+          { title: "Statsig AI Prompt Experiments", url: "https://statsig.com/blog/ai-prompt-experiments" },
         ],
       },
       {
         text: "Track the full metric stack on every AI feature: quality score, error/refusal rate, user frustration signals (retries, thumbs-down, session abandonment), cost per request, and end-to-end latency.",
         read: [
-          { title: "How to Balance Inference Cost and User Experience for Agents", url: "https://amplitude.com/blog/agent-analytics-beta" },
-          { title: "How Statsig Lets You Ship, Measure, and Optimize AI-Generated Code", url: "https://statsig.com/blog/measure-optimize-ai-generated-code" },
+          { title: "Balancing Inference Cost and UX for Agents", url: "https://amplitude.com/blog/agent-analytics-beta" },
+          { title: "Ship, Measure, and Optimize AI Code", url: "https://statsig.com/blog/measure-optimize-ai-generated-code" },
         ],
       },
       {
         text: "Use Statsig to gate every AI change behind a feature flag, ramp progressively, monitor guardrails in real time, and roll back in seconds.",
-        read: [{ title: "Automating Safe AI Config Rollouts with Custom Benchmarks and Statsig", url: "https://statsig.com/blog/automating-safe-ai-config-rollouts" }],
+        read: [{ title: "Automating Safe AI Config Rollouts", url: "https://statsig.com/blog/automating-safe-ai-config-rollouts" }],
       },
       {
         text: "Use Amplitude to correlate AI feature quality with downstream product outcomes (retention, engagement, conversion) — quality in a vacuum doesn't matter if it doesn't move business metrics.",
         read: [
           { title: "Building an AI-First Product", url: "https://amplitude.com/blog/ai-first-product" },
-          { title: "Your Users Are Your Best Benchmark: A Guide to Testing and Optimizing AI Products", url: "https://statsig.com/blog/guide-to-testing-optimizing-ai" },
+          { title: "Your Users Are Your Best Benchmark", url: "https://statsig.com/blog/guide-to-testing-optimizing-ai" },
         ],
       },
     ],
@@ -622,7 +622,7 @@ function stepText(step) {
 function stepReadHtml(step) {
   if (typeof step !== "object" || !step || !step.read || !step.read.length) return "";
   const links = step.read.map((r) =>
-    `<a class="step-read" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">Read: ${esc(r.title)} →</a>`
+    `<a class="step-read" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer"><strong>Read:</strong> ${esc(r.title)} →</a>`
   ).join("");
   return `<div class="step-reads">${links}</div>`;
 }
@@ -996,7 +996,7 @@ function renderNextStepsCard(weakestCategory) {
       <p class="sub">This category scored lowest (${Math.round(weakestCategory.pct)}%). Focus here for the biggest lift.</p>
 
       <ul class="steps-list">
-        ${weakestCategory.steps.slice(0, 6).map((s) => `<li><span class="step-text">${stepText(s)}</span>${stepReadHtml(s)}</li>`).join("")}
+        ${weakestCategory.steps.slice(0, 6).map((s) => `<li><div class="step-body"><span class="step-text">${stepText(s)}</span>${stepReadHtml(s)}</div></li>`).join("")}
       </ul>
     </div>
   `;
