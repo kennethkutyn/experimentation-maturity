@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none';" />
   <title>Experimentation Maturity Assessment</title>
   <meta name="description" content="A free diagnostic to assess your organization's experimentation maturity across strategy, culture, velocity, process, metrics, and tools." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
 </head>
 <body>
   <div class="app">
@@ -53,7 +54,7 @@
             <div class="stat"><div class="stat-num">5</div><div class="stat-lbl">maturity stages</div></div>
           </div>
           <p class="fine">You'll get an overall maturity stage, a per-category breakdown, and tailored next steps based on where you're weakest.</p>
-          <button class="btn btn-primary btn-lg" onclick="app.start()">Start assessment →</button>
+          <button class="btn btn-primary btn-lg" data-action="start">Start assessment →</button>
           <div class="admin-link-row">
             <a href="admin.html" class="admin-link">Admin view</a>
           </div>
@@ -68,7 +69,7 @@
           <p class="sub">We use this to benchmark your results against peers in the same industry.</p>
           <div class="options options-grid" id="industryOptions"></div>
           <div class="nav">
-            <button class="btn btn-ghost" onclick="app.back()">← Back</button>
+            <button class="btn btn-ghost" data-action="back">← Back</button>
             <div class="hint">Select an option to continue</div>
           </div>
         </div>
@@ -82,7 +83,7 @@
           <p class="sub">Company size shapes what a realistic "next step" looks like for your program.</p>
           <div class="options options-grid" id="sizeOptions"></div>
           <div class="nav">
-            <button class="btn btn-ghost" onclick="app.back()">← Back</button>
+            <button class="btn btn-ghost" data-action="back">← Back</button>
             <div class="hint">Select an option to continue</div>
           </div>
         </div>
@@ -95,7 +96,7 @@
           <h2 id="questionText"></h2>
           <div class="options options-list" id="questionOptions"></div>
           <div class="nav">
-            <button class="btn btn-ghost" onclick="app.back()">← Back</button>
+            <button class="btn btn-ghost" data-action="back">← Back</button>
             <div class="hint" id="questionHint">Select an answer to continue</div>
           </div>
         </div>
@@ -116,8 +117,8 @@
             </span>
           </label>
           <div class="nav">
-            <button class="btn btn-ghost" onclick="app.back()">← Back</button>
-            <button class="btn btn-primary btn-lg" onclick="app.showResults()">See my results →</button>
+            <button class="btn btn-ghost" data-action="back">← Back</button>
+            <button class="btn btn-primary btn-lg" data-action="showResults">See my results →</button>
           </div>
         </div>
       </section>
