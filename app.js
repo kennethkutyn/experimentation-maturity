@@ -602,6 +602,23 @@ const STEP_KEYS = {
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => Array.from(document.querySelectorAll(sel));
 
+/* --------------------- Amplitude tracking helpers --------------------- */
+/* analytics.js exposes window.__track and window.__identify. If it hasn't
+   loaded (ad blocker, offline), these are already no-ops there. */
+function track(name, props) {
+  if (typeof window.__track === "function") window.__track(name, props || {});
+}
+function identify(props) {
+  if (typeof window.__identify === "function") window.__identify(props || {});
+}
+function articleSource(url) {
+  if (!url) return "other";
+  if (url.indexOf("amplitude.com") !== -1) return "amplitude";
+  if (url.indexOf("statsig.com") !== -1) return "statsig";
+  if (url.indexOf("microsoft.com") !== -1) return "microsoft";
+  return "other";
+}
+
 /* HTML-escape user-controlled strings before interpolating into innerHTML. */
 function esc(str) {
   if (str == null) return "";
@@ -731,6 +748,8 @@ function selectIndustry(label, btnEl) {
   const buttons = $$("#industryOptions .option");
   buttons.forEach((b) => b.classList.remove("selected"));
   btnEl.classList.add("selected");
+  track("Industry Selected", { industry: label });
+  identify({ industry: label });
   setTimeout(() => {
     state.step = STEP_KEYS.SIZE;
     renderSize();
@@ -759,6 +778,8 @@ function selectSize(label, btnEl) {
   const buttons = $$("#sizeOptions .option");
   buttons.forEach((b) => b.classList.remove("selected"));
   btnEl.classList.add("selected");
+  track("Company Size Selected", { company_size: label });
+  identify({ company_size: label });
   setTimeout(() => {
     state.step = STEP_KEYS.FIRST_QUESTION;
     renderQuestion();
@@ -802,6 +823,17 @@ function selectAnswer(qIndex, score, btnEl) {
   const buttons = $$("#questionOptions .option");
   buttons.forEach((b) => b.classList.remove("selected"));
   btnEl.classList.add("selected");
+  const q = QUESTIONS[qIndex];
+  const cat = CATEGORIES.find((c) => c.key === q.category);
+  track("Question Answered", {
+    question_id: q.id,
+    question_number: qIndex + 1,
+    question_total: QUESTIONS.length,
+    category_key: q.category,
+    category_name: cat ? cat.name : q.category,
+    score: score,
+    question_text: q.q,
+  });
   /* Auto-advance with a small delay so the selection is perceptible */
   setTimeout(() => {
     if (state.step - STEP_KEYS.FIRST_QUESTION === QUESTIONS.length - 1) {
@@ -893,7 +925,48 @@ function renderResults() {
   `;
 
   wireActions();
+  wireResultsTracking(overall, stage, categoryScores, weakestCategory, weakestQuestions);
   if (state.benchmark) submitBenchmark();
+
+  const catScoresMap = {};
+  categoryScores.forEach((c) => { catScoresMap[c.key] = Math.round(c.pct); });
+  track("Assessment Completed", {
+    industry: state.industry,
+    company_size: state.size,
+    total_score: overall.total,
+    max_score: overall.max,
+    percentage: Math.round(overall.pct),
+    stage_level: stage.level,
+    stage_name: stage.name,
+    weakest_category: weakestCategory.key,
+    weakest_category_pct: Math.round(weakestCategory.pct),
+    weak_question_count: weakestQuestions.length,
+    category_scores: catScoresMap,
+    benchmark_opt_in: !!state.benchmark,
+  });
+  identify({
+    final_score: overall.total,
+    final_percentage: Math.round(overall.pct),
+    final_stage: stage.name,
+    weakest_category: weakestCategory.key,
+    benchmark_opted_in: !!state.benchmark,
+  });
+}
+
+function wireResultsTracking(overall, stage, categoryScores, weakestCategory) {
+  /* Track when the collapsible cards open. */
+  const catCard = document.querySelector(".categories-card");
+  if (catCard) {
+    catCard.addEventListener("toggle", () => {
+      if (catCard.open) track("Category Breakdown Expanded", { stage_name: stage.name });
+    });
+  }
+  const gapsCard = document.querySelector(".gaps-card");
+  if (gapsCard) {
+    gapsCard.addEventListener("toggle", () => {
+      if (gapsCard.open) track("Gaps Card Expanded", { stage_name: stage.name });
+    });
+  }
 }
 
 function renderHero(overall, stage) {
@@ -1091,6 +1164,16 @@ function downloadPdf() {
   const original = btn.textContent;
   btn.textContent = "Preparing…";
   btn.disabled = true;
+
+  const overall = computeOverall();
+  const stage = computeStage(overall.pct);
+  track("PDF Downloaded", {
+    industry: state.industry,
+    company_size: state.size,
+    total_score: overall.total,
+    percentage: Math.round(overall.pct),
+    stage_name: stage.name,
+  });
 
   /* Render the PDF DOM ON-SCREEN (top-left corner) so html2canvas can
      properly rasterize it. Cover it with an opaque overlay so users
@@ -1317,6 +1400,13 @@ function copyShareLink() {
   const btn = document.getElementById("shareLinkBtn");
   const original = btn.textContent;
   const url = window.location.origin + window.location.pathname + encodeUrl();
+  const overall = computeOverall();
+  track("Share Link Copied", {
+    industry: state.industry,
+    company_size: state.size,
+    percentage: Math.round(overall.pct),
+    stage_name: computeStage(overall.pct).name,
+  });
   const done = () => {
     btn.textContent = "Copied ✓";
     btn.classList.add("copied");
@@ -1344,6 +1434,7 @@ function fallbackCopy(text, cb) {
 }
 
 function retake() {
+  track("Retake Started");
   state.step = 0;
   state.industry = null;
   state.size = null;
@@ -1355,6 +1446,15 @@ function retake() {
 
 /* Placeholder — real POST endpoint will be added later. */
 function submitBenchmark() {
+  const overall = computeOverall();
+  const stage = computeStage(overall.pct);
+  track("Benchmark Submitted", {
+    industry: state.industry,
+    company_size: state.size,
+    total_score: overall.total,
+    percentage: Math.round(overall.pct),
+    stage_name: stage.name,
+  });
   /* eslint-disable no-unused-vars */
   const payload = {
     industry: state.industry,
@@ -1376,6 +1476,7 @@ function submitBenchmark() {
 
 const app = {
   start() {
+    track("Assessment Started");
     state.step = STEP_KEYS.INDUSTRY;
     renderIndustry();
     showScreen(state.step);
@@ -1504,19 +1605,59 @@ document.addEventListener("DOMContentLoaded", () => {
     if (header) header.classList.toggle("scrolled", window.scrollY > 6);
   }, { passive: true });
 
-  /* Delegated click handler for [data-action] buttons — avoids inline onclick
-     so a strict CSP with script-src 'self' (no 'unsafe-inline') will work. */
+  /* Delegated click handler for [data-action] buttons + analytics events.
+     Avoids inline onclick so strict CSP works. */
   document.addEventListener("click", (e) => {
-    const target = e.target.closest("[data-action]");
-    if (!target) return;
-    const action = target.dataset.action;
-    if (app && typeof app[action] === "function") app[action]();
+    /* data-action buttons */
+    const actionTarget = e.target.closest("[data-action]");
+    if (actionTarget) {
+      const action = actionTarget.dataset.action;
+      if (app && typeof app[action] === "function") app[action]();
+      return;
+    }
+    /* Suggested-reading pill click */
+    const readLink = e.target.closest(".step-read");
+    if (readLink) {
+      const titleText = readLink.textContent.replace(/^\s*Read:\s*/, "").replace(/\s*→\s*$/, "").trim();
+      track("Next Step Article Clicked", {
+        article_title: titleText,
+        article_url: readLink.href,
+        source: articleSource(readLink.href),
+      });
+      return;
+    }
+    /* Contact Expert CTA */
+    const ctaBtn = e.target.closest(".cta-btn");
+    if (ctaBtn) {
+      const overall = computeOverall();
+      track("Contact Expert Clicked", {
+        industry: state.industry,
+        company_size: state.size,
+        percentage: Math.round(overall.pct),
+        stage_name: computeStage(overall.pct).name,
+      });
+      return;
+    }
+    /* Admin link on the hero */
+    const adminLink = e.target.closest(".admin-link");
+    if (adminLink) {
+      track("Admin View Link Clicked");
+      return;
+    }
+  });
+
+  /* Benchmark checkbox toggle (on the submit screen) */
+  document.addEventListener("change", (e) => {
+    if (e.target && e.target.id === "benchmarkCheckbox") {
+      track("Benchmark Opt-In Toggled", { opt_in: !!e.target.checked });
+    }
   });
 
   /* Admin view mode */
   const adminRoot = document.getElementById("adminRoot");
   if (adminRoot) {
     renderAdminView(adminRoot);
+    track("Admin View Opened");
     return;
   }
 
