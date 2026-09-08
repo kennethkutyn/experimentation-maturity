@@ -1673,12 +1673,14 @@ document.addEventListener("DOMContentLoaded", () => {
   applyStatsigCtaSlots();
 });
 
-/* Swap CTA text on any [data-cta-slot] element with the value from the
-   Statsig "main" parameter store. Keys are "cta-<slot>" (e.g. the
-   landing button reads "cta-landing"). Falls back to the button's
-   existing text if Statsig is unavailable or the key is missing.
-   Waits up to 1.5s for Statsig readiness, then reveals the button
-   regardless so a slow SDK doesn't block the CTA. */
+/* Swap CTA text on any [data-cta-slot] element with a value pulled
+   from the Statsig layer/parameter declared on the element itself:
+     data-cta-layer="landing-page" data-cta-param="landing-cta"
+   Falls back to the element's existing text if Statsig is
+   unavailable, the layer/param is missing, or the value isn't a
+   non-empty string. Waits up to 1.5s for Statsig readiness, then
+   reveals the element regardless so a slow SDK never blocks the CTA.
+   Layer .get() auto-logs the exposure event. */
 function applyStatsigCtaSlots() {
   const slots = document.querySelectorAll("[data-cta-slot]");
   if (!slots.length) return;
@@ -1688,17 +1690,18 @@ function applyStatsigCtaSlots() {
   const ready = window.__statsigReady ? window.__statsigReady.catch(() => null) : Promise.resolve(null);
 
   Promise.race([ready, timeout]).then(() => {
-    try {
-      if (window.__statsig && typeof window.__statsig.getParameterStore === "function") {
-        const store = window.__statsig.getParameterStore("main");
-        slots.forEach((el) => {
-          const key = "cta-" + el.dataset.ctaSlot;
-          const fallback = el.textContent;
-          const value = store.get(key, fallback);
-          if (typeof value === "string" && value.length) el.textContent = value;
-        });
-      }
-    } catch (e) { /* leave defaults */ }
+    slots.forEach((el) => {
+      try {
+        const layerName = el.dataset.ctaLayer;
+        const paramName = el.dataset.ctaParam;
+        if (!layerName || !paramName) return;
+        if (!window.__statsig || typeof window.__statsig.getLayer !== "function") return;
+        const layer = window.__statsig.getLayer(layerName);
+        const fallback = el.textContent;
+        const value = layer.get(paramName, fallback);
+        if (typeof value === "string" && value.length) el.textContent = value;
+      } catch (e) { /* leave default */ }
+    });
     reveal();
   });
 }
