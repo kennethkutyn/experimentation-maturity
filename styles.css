@@ -849,6 +849,10 @@ details[open] > .details-summary .details-caret { transform: rotate(180deg); col
   font-weight: 600;
 }
 
+/* CTA slots we fetch dynamically from Statsig — kept invisible until
+   the value is applied so users don't see a text flicker. */
+.cta-hidden { visibility: hidden; }
+
 /* ---------- Admin link on hero ---------- */
 .admin-link-row {
   margin-top: 28px;

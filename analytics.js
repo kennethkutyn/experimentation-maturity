@@ -69,16 +69,21 @@
         || null;
   }
 
-  (function initStatsig() {
+  /* Exposed so app code can await Statsig before reading gates /
+     experiments / parameter stores. Resolves either way (fulfilled
+     when client is ready, or rejected if init fails / SDK missing). */
+  window.__statsigReady = new Promise(function (resolve, reject) {
     var Ctor = StatsigCtor();
-    if (!Ctor) return; /* Script blocked or not loaded yet. */
+    if (!Ctor) { reject(new Error("Statsig SDK not loaded")); return; }
     try {
       var client = new Ctor(STATSIG_KEY, { userID: userId });
       client.initializeAsync()
-        .then(function () { window.__statsig = client; })
-        .catch(function () { /* offline / blocked — silent */ });
-    } catch (e) {}
-  })();
+        .then(function () { window.__statsig = client; resolve(client); })
+        .catch(reject);
+    } catch (e) { reject(e); }
+  });
+  /* Prevent unhandled-rejection noise in the console if Statsig fails. */
+  window.__statsigReady.catch(function () {});
 
   /* -------------------- Public API -------------------- */
   window.__track = function (name, properties) {
