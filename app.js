@@ -1,5 +1,5 @@
 /* =============================================================
- * Experimentation Maturity Assessment — frontend logic
+ * Experimentation Maturity Assessment (frontend logic)
  * Static single-page app. State encoded in URL hash for shareable
  * stateless results links. Benchmark submission is a stub (POST
  * hook lives in submitBenchmark()); everything else is client-side.
@@ -37,7 +37,7 @@ const CATEGORIES = [
     questionIds: [1, 2, 3],
     steps: [
       {
-        text: "Map every active experiment to a specific KPI on the company scorecard — if it doesn't ladder up, question whether it should run.",
+        text: "Map every active experiment to a specific KPI on the company scorecard. If it doesn't ladder up, question whether it should run.",
         read: [{ title: "Product-Led Experimentation", url: "https://amplitude.com/blog/product-led-experimentation" }],
       },
       {
@@ -45,7 +45,7 @@ const CATEGORIES = [
         read: [{ title: "The Rise of Experimentation", url: "https://statsig.com/blog/the-rise-of-experimentation" }],
       },
       {
-        text: "Expand experimentation beyond product and growth into marketing, pricing, support, and operations — pick one non-obvious surface this quarter.",
+        text: "Expand experimentation beyond product and growth into marketing, pricing, support, and operations. Pick one non-obvious surface this quarter.",
         read: [{ title: "5 Trends in A/B Testing", url: "https://amplitude.com/blog/ab-testing-trends" }],
       },
       {
@@ -62,7 +62,7 @@ const CATEGORIES = [
     questionIds: [4, 5, 6, 7],
     steps: [
       {
-        text: "Recruit an executive sponsor who will publicly cite experiment results — including surprising ones that contradict their own intuition.",
+        text: "Recruit an executive sponsor who will publicly cite experiment results, including surprising ones that contradict their own intuition.",
         read: [{ title: "Experimentation Is a Culture, Not a Task", url: "https://amplitude.com/blog/experimentation-is-a-culture" }],
       },
       {
@@ -89,14 +89,14 @@ const CATEGORIES = [
     questionIds: [8, 9, 10],
     steps: [
       {
-        text: "Set a target for tests-per-team-per-month and track cadence weekly. Aim for a step-change (e.g., 2x within two quarters). Don't over-worry about experiment interactions — the research shows you can run many concurrent tests safely.",
+        text: "Set a target for tests-per-team-per-month and track cadence weekly. Aim for a step-change (e.g., 2x within two quarters). Don't over-worry about experiment interactions; the research shows you can run many concurrent tests safely.",
         read: [
           { title: "A/B Interactions: A Call to Relax", url: "https://www.microsoft.com/en-us/research/articles/a-b-interactions-a-call-to-relax/" },
           { title: "Speeding up A/B Tests with Discipline", url: "https://statsig.com/blog/speeding-up-a-b-tests-with-discipline" },
         ],
       },
       {
-        text: "Audit your idea-to-live pipeline and eliminate the single longest step — usually approvals, QA, or platform provisioning.",
+        text: "Audit your idea-to-live pipeline and eliminate the single longest step, usually approvals, QA, or platform provisioning.",
         read: [{ title: "Top 8 Experimentation Mistakes", url: "https://statsig.com/blog/top-8-common-experimentation-mistakes-how-to-fix" }],
       },
       {
@@ -104,7 +104,7 @@ const CATEGORIES = [
         read: [{ title: "Chasing Metrics, Not Tasks", url: "https://statsig.com/blog/chasing-metrics-not-tasks-why-outcome-obsessed-pms-win" }],
       },
       {
-        text: "Add a low-code experimentation solution so marketing and growth teams can launch tests without waiting on engineering — often the single highest-ROI move for velocity.",
+        text: "Add a low-code experimentation solution so marketing and growth teams can launch tests without waiting on engineering. Often the single highest-ROI move for velocity.",
         read: [
           { title: "No-Code Web Experimentation at Amplitude", url: "https://amplitude.com/blog/amplitude-team-web-experimentation" },
         ],
@@ -132,7 +132,7 @@ const CATEGORIES = [
         ],
       },
       {
-        text: "Adopt a prioritization framework (RICE, ICE, or PXL) and apply it consistently across all teams — inconsistency erodes trust in the pipeline.",
+        text: "Adopt a prioritization framework (RICE, ICE, or PXL) and apply it consistently across all teams; inconsistency erodes trust in the pipeline.",
         read: [{ title: "PM Roundtable: Prioritizing Experiments", url: "https://statsig.com/blog/pm-roundtable-prioritize-experiments" }],
       },
       {
@@ -140,7 +140,7 @@ const CATEGORIES = [
         read: [{ title: "Meta-Analysis and the Knowledge Base", url: "https://statsig.com/blog/experimental-meta-analysis-and-knowledge-base" }],
       },
       {
-        text: "Use session replay to strengthen ideation and background research — watching real user friction turns qualitative signal into testable hypotheses.",
+        text: "Use session replay to strengthen ideation and background research. Watching real user friction turns qualitative signal into testable hypotheses.",
         read: [{ title: "5 Things to Do with Session Replay", url: "https://statsig.com/blog/session-replay-things-to-try" }],
       },
       "Run an experiment ideation workshop with the Statsig team to seed your backlog with high-quality, testable hypotheses.",
@@ -171,7 +171,7 @@ const CATEGORIES = [
         read: [{ title: "Metrics That Make or Break Experiments", url: "https://statsig.com/blog/product-metrics-that-make-or-break-your-experiments" }],
       },
       {
-        text: "Bring in warehouse metrics rather than relying on proxy metrics — analyze experiments against the same governed definitions your business already trusts.",
+        text: "Bring in warehouse metrics rather than relying on proxy metrics. Analyze experiments against the same governed definitions your business already trusts.",
         read: [{ title: "Why Warehouse-Native Experimentation", url: "https://statsig.com/blog/warehouse-native-experimentation-value-props" }],
       },
       {
@@ -187,7 +187,7 @@ const CATEGORIES = [
     questionIds: [18, 19, 20, 21],
     steps: [
       {
-        text: "Roll out feature flags as standard practice for every product launch — decouple deployment from release so risky bets can be tested safely.",
+        text: "Roll out feature flags as standard practice for every product launch. Decouple deployment from release so risky bets can be tested safely.",
         read: [
           { title: "A/B Testing + Feature Flagging (Amplitude)", url: "https://amplitude.com/blog/experiment-feature-management" },
           { title: "Experiments vs. Feature Flags", url: "https://statsig.com/blog/distinction-between-experiments-and-feature-flags" },
@@ -204,7 +204,7 @@ const CATEGORIES = [
           { title: "Statsig Autotune: Contextual Bandits", url: "https://statsig.com/blog/statsig-autotune-contextual-bandits-personalization" },
         ],
       },
-      "Add a feature experimentation solution (like Statsig) so teams can launch experiments anywhere in the stack — client, server, backend logic, or ML models.",
+      "Add a feature experimentation solution (like Statsig) so teams can launch experiments anywhere in the stack: client, server, backend logic, or ML models.",
       {
         text: "Add a low-code experimentation solution to unlock marketing and growth teams without requiring engineering to ship each test.",
         read: [
@@ -222,7 +222,7 @@ const CATEGORIES = [
     questionIds: [22, 23],
     steps: [
       {
-        text: "Treat every AI change — model swap, prompt update, thinking-level change, tool/config change — as an experiment. Never ship AI changes to 100% without a measured comparison.",
+        text: "Treat every AI change (model swap, prompt update, thinking-level change, tool/config change) as an experiment. Never ship AI changes to 100% without a measured comparison.",
         read: [
           { title: "AI Broke Experimentation", url: "https://amplitude.com/blog/ai-broke-experimentation" },
           { title: "4 Trends in AI Experimentation", url: "https://statsig.com/blog/experimentation-and-ai-trend" },
@@ -254,7 +254,7 @@ const CATEGORIES = [
         read: [{ title: "Automating Safe AI Config Rollouts", url: "https://statsig.com/blog/automating-safe-ai-config-rollouts" }],
       },
       {
-        text: "Use Amplitude to correlate AI feature quality with downstream product outcomes (retention, engagement, conversion) — quality in a vacuum doesn't matter if it doesn't move business metrics.",
+        text: "Use Amplitude to correlate AI feature quality with downstream product outcomes (retention, engagement, conversion). Quality in a vacuum doesn't matter if it doesn't move business metrics.",
         read: [
           { title: "Building an AI-First Product", url: "https://amplitude.com/blog/ai-first-product" },
           { title: "Your Users Are Your Best Benchmark", url: "https://statsig.com/blog/guide-to-testing-optimizing-ai" },
@@ -283,11 +283,11 @@ const QUESTIONS = [
     id: 2, category: "strategy",
     q: "What percentage of significant product, marketing, or UX launches are validated with a controlled experiment before full rollout?",
     options: [
-      "Under 10% — most things ship on intuition.",
+      "Under 10%; most things ship on intuition.",
       "10–25%.",
       "25–50%.",
       "50–80%.",
-      "Over 80% — shipping without a test is the exception, not the norm.",
+      "Over 80%. Shipping without a test is the exception, not the norm.",
     ],
     weakAdvice: "Set a policy that anything touching a top-line metric requires a test. Start with one product surface and expand from there.",
   },
@@ -298,8 +298,8 @@ const QUESTIONS = [
       "One team or one channel (usually product or growth).",
       "2–3 teams; other areas ship without testing.",
       "Product + marketing + parts of engineering.",
-      "Most digital surfaces — web, app, email, notifications, backend/ranking.",
-      "Everywhere digital and increasingly offline — pricing, support, sales scripts, physical experience.",
+      "Most digital surfaces: web, app, email, notifications, backend/ranking.",
+      "Everywhere digital and increasingly offline: pricing, support, sales scripts, physical experience.",
     ],
     weakAdvice: "Pick one non-obvious surface (pricing, email, support scripts) and pilot experimentation there this quarter. Breadth is a maturity signal.",
   },
@@ -309,7 +309,7 @@ const QUESTIONS = [
     id: 4, category: "culture",
     q: "How would you describe leadership's engagement with experimentation?",
     options: [
-      "Leaders rarely engage — the highest-paid person's opinion (HiPPO) usually wins.",
+      "Leaders rarely engage; the highest-paid person's opinion (HiPPO) usually wins.",
       "A few executives are supportive, but most decisions still bypass testing.",
       "Leadership accepts experiments for tactical decisions; strategy is set top-down.",
       "Leadership actively cites experiment results and expects tests before major launches.",
@@ -327,7 +327,7 @@ const QUESTIONS = [
       "The team accepts the data and adjusts the plan.",
       "Leadership publicly celebrates the surprise as a learning moment.",
     ],
-    weakAdvice: "This is the Semmelweis Reflex. Create a written norm that experiment results are dispositive on tactical decisions — even when they surprise leaders.",
+    weakAdvice: "This is the Semmelweis Reflex. Create a written norm that experiment results are dispositive on tactical decisions, even when they surprise leaders.",
   },
   {
     id: 6, category: "culture",
@@ -337,9 +337,9 @@ const QUESTIONS = [
       "They're quietly shelved; only wins get shared.",
       "They're documented, but rarely reviewed by others.",
       "They're treated as valuable learnings and shared broadly.",
-      "Learning rate is tracked as a headline metric — a low rate signals under-ambitious hypotheses.",
+      "Learning rate is tracked as a headline metric; a low rate signals under-ambitious hypotheses.",
     ],
-    weakAdvice: "Reframe every 'failed' test as a learning and publish your learning rate. Kohavi's Bing team ran at ~15% success — a healthy exploration rate. Reward the team that runs the most instructive experiment each quarter.",
+    weakAdvice: "Reframe every 'failed' test as a learning and publish your learning rate. Kohavi's Bing team ran at ~15% success, a healthy exploration rate. Reward the team that runs the most instructive experiment each quarter.",
   },
   {
     id: 7, category: "culture",
@@ -371,23 +371,23 @@ const QUESTIONS = [
     id: 9, category: "velocity",
     q: "From 'we have an idea' to 'the test is live in production,' how long does a typical experiment take?",
     options: [
-      "Months — every test is a bespoke project.",
+      "Months. Every test is a bespoke project.",
       "3–6 weeks.",
       "1–2 weeks.",
       "A few days.",
-      "Hours — self-serve setup with lightweight review.",
+      "Hours, with self-serve setup and lightweight review.",
     ],
-    weakAdvice: "Audit the pipeline and eliminate the single slowest step. Usually it's manual QA, provisioning, or approvals — not the test itself.",
+    weakAdvice: "Audit the pipeline and eliminate the single slowest step. Usually it's manual QA, provisioning, or approvals, not the test itself.",
   },
   {
     id: 10, category: "velocity",
     q: "How often do teams run multiple experiments in sequence against the same surface (iterative vs. one-and-done)?",
     options: [
-      "Never — we test once and move on.",
+      "Never. We test once and move on.",
       "Occasionally, when results are inconclusive.",
       "Frequently for high-value surfaces, rarely elsewhere.",
       "Most meaningful features go through 2–3 iterations informed by prior results.",
-      "Continuous iteration is the norm — surfaces are treated as evolving hypotheses.",
+      "Continuous iteration is the norm; surfaces are treated as evolving hypotheses.",
     ],
     weakAdvice: "Compounding growth = growth rate ^ turns. One-and-done kills compounding. Schedule a v2 for every launched winner before the v1 ships.",
   },
@@ -436,7 +436,7 @@ const QUESTIONS = [
       "We rarely do research; ideas come from meetings and intuition.",
       "Research is done ad hoc when a specific question arises.",
       "We do periodic research sprints that inform quarterly test plans.",
-      "Research and experimentation are tightly coupled — quant and qual continuously feed each other.",
+      "Research and experimentation are tightly coupled; quant and qual continuously feed each other.",
       "'Always-on' research (surveys, interviews, behavioral analytics) constantly seeds the experiment pipeline.",
     ],
     weakAdvice: "Standing research (interviews, session replay, feedback surveys) 10x's your win rate by seeding better hypotheses. Set a target of X interviews per sprint.",
@@ -447,7 +447,7 @@ const QUESTIONS = [
     id: 15, category: "metrics",
     q: "Do you have a defined Overall Evaluation Criterion (OEC) or primary success metric for experiments?",
     options: [
-      "No — success is judged case by case.",
+      "No; success is judged case by case.",
       "Individual teams define their own metrics per test.",
       "We have a documented primary metric per product area.",
       "We have a company-wide OEC balancing multiple business outcomes.",
@@ -477,7 +477,7 @@ const QUESTIONS = [
       "Retention, LTV, and behavioral north-star metrics.",
       "Long-term causal metrics validated through holdouts and downstream measurement.",
     ],
-    weakAdvice: "Click and page-view wins often don't translate to business impact. Push measurement one level deeper — behavior, retention, revenue.",
+    weakAdvice: "Click and page-view wins often don't translate to business impact. Push measurement one level deeper: behavior, retention, revenue.",
   },
 
   /* --- Tools & Infrastructure --- */
@@ -497,7 +497,7 @@ const QUESTIONS = [
     id: 19, category: "tools",
     q: "How does your team use feature flags for progressive delivery and safe deployment?",
     options: [
-      "We don't use feature flags — releases go out to 100% of users at once.",
+      "We don't use feature flags; releases go out to 100% of users at once.",
       "We use flags for major launches only, decided case by case.",
       "Most new features are gated behind flags with manual, gradual rollouts.",
       "Feature flags are standard practice with kill switches, targeting, and progressive rollouts by default.",
@@ -509,11 +509,11 @@ const QUESTIONS = [
     id: 20, category: "tools",
     q: "How integrated is your experimentation platform with your analytics and data stack?",
     options: [
-      "Not integrated — results live in silos.",
+      "Not integrated; results live in silos.",
       "Manual data pulls for post-hoc analysis.",
       "Basic integration; experiment data lands in the warehouse.",
       "Full integration; experiment metrics are automatically derived from a governed metric layer.",
-      "Bidirectional — experiment results feed personalization models, ML systems, and downstream decisioning.",
+      "Bidirectional; experiment results feed personalization models, ML systems, and downstream decisioning.",
     ],
     weakAdvice: "Siloed experiment data means every analysis is bespoke. Land experiment assignment and events in your warehouse so metrics reuse your existing definitions.",
   },
@@ -527,7 +527,7 @@ const QUESTIONS = [
       "Multi-armed bandits, switchbacks, quasi-experiments.",
       "Full personalization, contextual bandits, and causal ML at scale.",
     ],
-    weakAdvice: "Client-only tests limit you to UI changes. Server-side testing unlocks pricing, ranking, and backend logic — where most business impact lives.",
+    weakAdvice: "Client-only tests limit you to UI changes. Server-side testing unlocks pricing, ranking, and backend logic, where most business impact lives.",
   },
 
   /* --- AI Product Experimentation --- */
@@ -535,25 +535,25 @@ const QUESTIONS = [
     id: 22, category: "ai",
     q: "How does your team ship changes to AI/LLM features (model swaps, prompt updates, thinking-level changes, tool or config changes)?",
     options: [
-      "We don't ship AI features — or we push AI changes to 100% of traffic without measurement.",
+      "We don't ship AI features, or we push AI changes to 100% of traffic without measurement.",
       "We eyeball a handful of outputs manually, then ship.",
       "We run offline evals on a sample dataset before shipping.",
       "We A/B test material AI changes on a subset of traffic with at least one quality metric.",
       "Every AI change flows through a controlled experiment with production evals, guardrails, and progressive rollout.",
     ],
-    weakAdvice: "Every prompt tweak, model swap, or thinking-level change is a new hypothesis. Gate them behind feature flags and measure quality, cost, and latency on a subset of traffic before you ramp — untested AI changes are the fastest way to ship a regression you can't see.",
+    weakAdvice: "Every prompt tweak, model swap, or thinking-level change is a new hypothesis. Gate them behind feature flags and measure quality, cost, and latency on a subset of traffic before you ramp. Untested AI changes are the fastest way to ship a regression you can't see.",
   },
   {
     id: 23, category: "ai",
     q: "What signals do you capture to evaluate AI/LLM features in production?",
     options: [
       "We rely on user complaints or manual review as the primary quality signal.",
-      "We track a single dimension (usually cost or latency) — quality is subjective.",
+      "We track a single dimension (usually cost or latency); quality is subjective.",
       "We track quality via periodic manual review plus a couple of ops metrics.",
-      "We track a broad set — quality, error rate, latency, cost — but mostly via offline evals.",
+      "We track a broad set (quality, error rate, latency, cost), but mostly via offline evals.",
       "We run LLM-as-a-Judge evals in production with automated quality scoring alongside error rate, user frustration signals (retries, thumbs-down, abandonment), cost per request, and latency.",
     ],
-    weakAdvice: "Manual review doesn't scale and user complaints are a lagging indicator. Instrument LLM-as-a-Judge scoring in production and track the full stack: quality, error/refusal rate, user frustration (retries, thumbs-down, session abandonment), cost per request, and latency — for every AI-powered surface.",
+    weakAdvice: "Manual review doesn't scale and user complaints are a lagging indicator. Instrument LLM-as-a-Judge scoring in production and track the full stack: quality, error/refusal rate, user frustration (retries, thumbs-down, session abandonment), cost per request, and latency, for every AI-powered surface.",
   },
 ];
 
@@ -852,11 +852,11 @@ function renderSubmit() {
   grid.innerHTML = `
     <div class="summary-cell">
       <div class="summary-cell-label">Industry</div>
-      <div class="summary-cell-value">${esc(state.industry) || "—"}</div>
+      <div class="summary-cell-value">${esc(state.industry) || "-"}</div>
     </div>
     <div class="summary-cell">
       <div class="summary-cell-label">Company size</div>
-      <div class="summary-cell-value">${esc(state.size) || "—"}</div>
+      <div class="summary-cell-value">${esc(state.size) || "-"}</div>
     </div>
     <div class="summary-cell">
       <div class="summary-cell-label">Questions answered</div>
@@ -1105,7 +1105,7 @@ function renderGapsCard(weakestQuestions) {
       <div class="details-body">
         <p class="sub">
           ${total > MAX
-            ? `Showing the ${MAX} lowest of ${total} — each is a discrete, actionable place to start.`
+            ? `Showing the ${MAX} lowest of ${total}. Each is a discrete, actionable place to start.`
             : "Each of these is a discrete, actionable place to start."}
         </p>
         ${shown.map((wq) => {
@@ -1128,7 +1128,7 @@ function renderContactCta() {
     <div class="cta-card">
       <div class="cta-content">
         <h3>Uplevel your experimentation program.</h3>
-        <p>Chat with an Amplitude + Statsig expert today. We'll help you turn these next steps into a concrete plan — tooling, templates, and workshops tailored to where you are.</p>
+        <p>Chat with an Amplitude + Statsig expert today. We'll help you turn these next steps into a concrete plan: tooling, templates, and workshops tailored to where you are.</p>
       </div>
       <a class="cta-btn" href="https://www.statsig.com/contact/us?source=expmaturitytool" target="_blank" rel="noopener">Chat with an expert →</a>
     </div>
@@ -1310,8 +1310,8 @@ function buildPdfDocument() {
           <small>Experimentation Maturity Assessment</small>
         </div>
         <div class="pdf-meta">
-          <div><strong>Industry:</strong> ${esc(state.industry) || "—"}</div>
-          <div><strong>Company size:</strong> ${esc(state.size) || "—"}</div>
+          <div><strong>Industry:</strong> ${esc(state.industry) || "-"}</div>
+          <div><strong>Company size:</strong> ${esc(state.size) || "-"}</div>
           <div>${today}</div>
         </div>
       </div>
@@ -1382,7 +1382,7 @@ function buildPdfDocument() {
 
       <div class="pdf-cta pdf-avoid-break">
         <h3>Uplevel your experimentation program.</h3>
-        <p>Chat with an Amplitude + Statsig expert — we'll help turn these next steps into a concrete plan.</p>
+        <p>Chat with an Amplitude + Statsig expert. We'll help turn these next steps into a concrete plan.</p>
         <a href="https://www.statsig.com/contact/us?source=expmaturitytool">statsig.com/contact/us?source=expmaturitytool</a>
       </div>
 
@@ -1442,7 +1442,7 @@ function retake() {
   showScreen(0);
 }
 
-/* Placeholder — real POST endpoint will be added later. */
+/* Placeholder. Real POST endpoint will be added later. */
 function submitBenchmark() {
   const overall = computeOverall();
   const stage = computeStage(overall.pct);

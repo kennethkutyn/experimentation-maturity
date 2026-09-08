@@ -1,8 +1,8 @@
 # Experimentation Maturity Assessment
 
 A free, static web app that helps organizations diagnose the maturity of their
-experimentation program across seven dimensions — including AI product
-experimentation — and see tailored next steps.
+experimentation program across seven dimensions, including AI product
+experimentation, and see tailored next steps.
 
 Built as a lead-generation asset for Amplitude + Statsig.
 
@@ -19,9 +19,9 @@ Built as a lead-generation asset for Amplitude + Statsig.
 - Surfaces next steps for the weakest-scoring category and specific gap advice
   for the 5 lowest-scoring questions.
 - Offers PDF download and a stateless shareable link (full state encoded in the
-  URL hash — no backend needed).
+  URL hash; no backend needed).
 - Includes an opt-in benchmark checkbox for community aggregation
-  (submission endpoint is a stub — wire to your own backend).
+  (submission endpoint is a stub; wire to your own backend).
 
 ## Structure
 
@@ -34,15 +34,15 @@ footer-pets.svg     # Footer illustration
 README.md
 ```
 
-Everything is a static file — no build step, no framework.
+Everything is a static file; no build step, no framework.
 
 ## Frameworks the assessment draws on
 
-- Stefan Thomke (HBS) — 5 stages: Awareness → Belief → Commitment → Diffusion → Embeddedness
-- Ronny Kohavi — Hubris → Measurement & Control → Accept Results → Fundamental Understanding
-- Conversion.com — Reactive → Emerging → Strategic → Integrated → Optimized
-- Bain & Co — Crawl / Walk / Run + Testing focus, Process, People, Tools
-- Statsig — "Simple + Trustworthy," compounding growth = growth rate ^ turns
+- Stefan Thomke (HBS): 5 stages: Awareness → Belief → Commitment → Diffusion → Embeddedness
+- Ronny Kohavi: Hubris → Measurement & Control → Accept Results → Fundamental Understanding
+- Conversion.com: Reactive → Emerging → Strategic → Integrated → Optimized
+- Bain & Co: Crawl / Walk / Run + Testing focus, Process, People, Tools
+- Statsig: "Simple + Trustworthy," compounding growth = growth rate ^ turns
 
 ## Local development
 

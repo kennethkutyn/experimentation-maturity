@@ -18,7 +18,7 @@
 
   /* Stable anonymous ID reused as both Amplitude deviceId and Statsig userID
      so users are correlated across the two tools. Persisted in
-     localStorage — regenerated only if the browser wipes storage. */
+     localStorage; regenerated only if the browser wipes storage. */
   function getStableUserId() {
     try {
       var id = localStorage.getItem("em_user_id");
@@ -62,7 +62,7 @@
   /* -------------------- Statsig -------------------- */
   /* Initialized only so the SDK can serve feature gates / experiments /
      dynamic configs. The SDK auto-logs exposure events as those APIs
-     are called — we intentionally do not send custom events here. */
+     are called. We intentionally do not send custom events here. */
   function StatsigCtor() {
     return (window.Statsig && window.Statsig.StatsigClient)
         || window.StatsigClient
