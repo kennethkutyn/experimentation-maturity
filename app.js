@@ -66,7 +66,7 @@ const CATEGORIES = [
         read: [{ title: "Experimentation Is a Culture, Not a Task", url: "https://amplitude.com/blog/experimentation-is-a-culture" }],
       },
       {
-        text: "Track and publish your experiment failure rate as a positive metric. Kohavi's benchmark: 10–15% success is normal. A high win rate signals under-ambitious hypotheses.",
+        text: "Track and publish your learning rate as a headline metric. Kohavi's benchmark: 10–15% win rate is healthy. A high win rate signals under-ambitious hypotheses.",
         read: [
           { title: "Finding Value in a Failed A/B Test", url: "https://amplitude.com/blog/find-value-failed-ab-test" },
           { title: "Why Data and Intuition Aren't Enemies", url: "https://statsig.com/blog/why-data-and-intuition-arent-enemies" },
@@ -331,21 +331,21 @@ const QUESTIONS = [
   },
   {
     id: 6, category: "culture",
-    q: "How does your organization treat experiments that fail (i.e., don't move the metric)?",
+    q: "How does your organization treat experiments that don't move the target metric?",
     options: [
-      "Failures are seen as wasted effort; teams avoid running risky ones.",
-      "Failures are quietly shelved; only wins get shared.",
-      "Failures are documented, but rarely reviewed by others.",
-      "Failures are treated as valuable learnings and shared broadly.",
-      "Failure rates are tracked as a positive metric — a low rate is a red flag for under-ambition.",
+      "They're seen as wasted effort; teams avoid running risky ones.",
+      "They're quietly shelved; only wins get shared.",
+      "They're documented, but rarely reviewed by others.",
+      "They're treated as valuable learnings and shared broadly.",
+      "Learning rate is tracked as a headline metric — a low rate signals under-ambitious hypotheses.",
     ],
-    weakAdvice: "Publish your failure rate. Kohavi's Bing team ran at ~85% failure — that's a healthy exploration rate. Reward the team that fails the most instructive test each quarter.",
+    weakAdvice: "Reframe every 'failed' test as a learning and publish your learning rate. Kohavi's Bing team ran at ~15% success — a healthy exploration rate. Reward the team that runs the most instructive experiment each quarter.",
   },
   {
     id: 7, category: "culture",
     q: "How would you describe experimentation literacy across teams (PMs, engineers, designers, marketers)?",
     options: [
-      "Most people can't explain what an A/B test does or why randomization matters.",
+      "Every test needs a data analyst for the readout.",
       "Product teams are literate; other functions are not.",
       "Product and data teams are strong; marketing and CX are catching up.",
       "Most functions can design and interpret their own tests with light support.",
@@ -463,7 +463,7 @@ const QUESTIONS = [
       "We eyeball obvious ones (revenue, retention) after the fact.",
       "Every experiment has a defined set of guardrail metrics.",
       "Guardrails are automated with alerts and auto-shutoff for severe regressions.",
-      "We monitor trust metrics (SRM, novelty, primacy) and long-term holdout effects continuously.",
+      "We monitor trust metrics (SRM, novelty, primacy) automatically for every test and long-term holdout effects continuously.",
     ],
     weakAdvice: "Every experiment needs guardrails on latency, crash rate, retention, and a data-quality (SRM) check. Standardize a template and apply universally.",
   },
