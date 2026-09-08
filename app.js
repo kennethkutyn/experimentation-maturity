@@ -99,7 +99,6 @@ const CATEGORIES = [
         text: "Audit your idea-to-live pipeline and eliminate the single longest step — usually approvals, QA, or platform provisioning.",
         read: [{ title: "Top 8 Experimentation Mistakes", url: "https://statsig.com/blog/top-8-common-experimentation-mistakes-how-to-fix" }],
       },
-      "Invest in self-serve tooling so PMs, marketers, and engineers can launch experiments without a data-science bottleneck.",
       {
         text: "Treat every launched feature as a hypothesis: schedule follow-up iterations rather than shipping once and moving on.",
         read: [{ title: "Chasing Metrics, Not Tasks", url: "https://statsig.com/blog/chasing-metrics-not-tasks-why-outcome-obsessed-pms-win" }],
@@ -108,7 +107,6 @@ const CATEGORIES = [
         text: "Add a low-code experimentation solution so marketing and growth teams can launch tests without waiting on engineering — often the single highest-ROI move for velocity.",
         read: [
           { title: "No-Code Web Experimentation at Amplitude", url: "https://amplitude.com/blog/amplitude-team-web-experimentation" },
-          { title: "Statsig Sidecar for Website A/B Tests", url: "https://statsig.com/blog/statsig-sidecar-website-ab-tests" },
         ],
       },
     ],
